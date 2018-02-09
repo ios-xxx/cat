@@ -20,47 +20,27 @@
 - (void)windowDidLoad {
     [super windowDidLoad];
     
-    // create a table view and a scroll view
-    NSScrollView * tableContainer = [[NSScrollView alloc] initWithFrame:NSMakeRect(10, 10, 380, 200)];
-    tableView = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, 364, 200)];
-    // create columns for our table
-    NSTableColumn * column1 = [[NSTableColumn alloc] initWithIdentifier:@"part name"];
-    //    NSTableColumn * column2 = [[NSTableColumn alloc] initWithIdentifier:@"part index"];
-    //    NSTableColumn * column3 = [[NSTableColumn alloc] initWithIdentifier:@"part size"];
+    [self.window setContentSize:CGSizeMake(800, 600)];
+
+
+   // NSRect wndFrame = [self.window frameRectForContentRect：viewScreenFrame];
+   // [_window setFrame：wndFrame display：YES animate：YES];
     
-    [column1.headerCell setStringValue:@"name"];
-    [column1 setWidth:80];
-    //    [column2 setWidth:80];
-    //    [column3 setWidth:80];
-    // generally you want to add at least one column to the table view.
-    [tableView addTableColumn:column1];
-    //    [tableView addTableColumn:column2];
-    //    [tableView addTableColumn:column3];
+    
+    // create a table view and a scroll view
+    NSScrollView * tableContainer = [[NSScrollView alloc] initWithFrame:NSMakeRect(10, 10, self.bgView.frame.size.width - 20, 200)];
+    tableView = [[NSTableView alloc] initWithFrame:NSMakeRect(0, 0, 364, 200)];
     
     [tableView setDelegate:self];
     [tableView setDataSource:self];
     [tableView reloadData];
     // embed the table view in the scroll view, and add the scroll view to our window.
     [tableContainer setDocumentView:tableView];
-    [tableContainer setHasVerticalScroller:YES];
+    [tableContainer setHasVerticalScroller:true];
+    [tableContainer setHasHorizontalScroller:true];
     [_bgView addSubview:tableContainer];
     NSLog(@"add done");
     
-    
-    NSUInteger      index = 0;
-    
-    partInfos = [NSMutableArray new];
-    
-    
-    for (index = 0; index < 4; ++index)
-    {
-        [partInfos addObject:@(index)];
-        
-    }
-    
-    
-    
-    [tableView reloadData];
    
 }
 
@@ -68,7 +48,7 @@
 //控件以此判断要显示多少行
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView
 {
-    return [partInfos count];
+    return [_dataArr count];
 }
 
 //加载数据的时候每个单元格数据都从此获取
@@ -84,11 +64,18 @@
     NSString *identifier = [tableColumn identifier];
     
     
-    if ([identifier isEqualToString:@"part name"])
-    {
-        NSTextFieldCell *textCell = cell;
-        [textCell setTitle:partInfos[row]];
-    }
+    NSTextFieldCell *textCell = cell;
+    NSArray * rowArr = _dataArr[row];
+    
+    NSString *  rowStr = [identifier substringFromIndex:identifier.length-1];
+    NSString *  rowStr1 = [identifier substringFromIndex:identifier.length-2];
+
+    NSInteger count = [rowStr1 integerValue] > 0 ? [rowStr1 integerValue] : [rowStr integerValue];
+    
+//    NSLog(@"--%ld",count);
+    [textCell setTitle:rowArr[count]];
+    
+    
     
 }
 
@@ -98,39 +85,59 @@
 
 - (IBAction)query:(id)sender {
     
-    NSURLRequest * req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://kyfw.12306.cn/otn/leftTicket/queryZ?leftTicketDTO.train_date=2018-02-15&leftTicketDTO.from_station=BJP&leftTicketDTO.to_station=SHH&purpose_codes=0X00"]];
+//    NSURLRequest * req = [NSURLRequest requestWithURL:[NSURL URLWithString:@"https://kyfw.12306.cn/otn/leftTicket/queryZ?leftTicketDTO.train_date=2018-02-15&leftTicketDTO.from_station=BJP&leftTicketDTO.to_station=SHH&purpose_codes=0X00"]];
+//
+//    NSURLSession * session = [NSURLSession sharedSession];
+//
+//    NSURLSessionDataTask * dataTask = [session dataTaskWithRequest:req completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+//
+//
+//
+//
+//    }];
+//
+//    [dataTask resume];
     
-    NSURLSession * session = [NSURLSession sharedSession];
+    [self tableReload];
+}
+
+-(void)tableReload {
     
-    NSURLSessionDataTask * dataTask = [session dataTaskWithRequest:req completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+    NSString * patch = [[NSBundle mainBundle] pathForResource:@"data" ofType:@"json"];
+    NSString * str = [[NSString alloc]initWithContentsOfFile:patch encoding:NSUTF8StringEncoding error:nil];
+    NSData * data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+    
+    //        NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+    dict = dict[@"data"];
+    
+    int i = 0;
+    
+    for (NSString * str in dict[@"result"]) {
+      
+        i++;
         
+        NSArray * objArr = [str componentsSeparatedByString:@"|"];
         
-        NSDictionary * dict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
-        dict = dict[@"data"];
+         [self.dataArr addObject:objArr];
         
-        int i = 0;
-        
-        for (NSString * str in dict[@"result"]) {
-            i++;
+        if(i > 1) continue ;
+        for (int co=0; co < objArr.count; co++) {
             
-            if(i > 1) return ;
-            
-            NSArray * objArr = [str componentsSeparatedByString:@"|"];
-            for (NSString * obj in objArr) {
-                
-                NSLog(@"res= %@",obj);
-            }
-            
+            NSTableColumn * column1 = [[NSTableColumn alloc] initWithIdentifier:[NSString stringWithFormat:@"part name %d",co]];
+            [column1.headerCell setStringValue:@"name"];
+            [column1.headerCell setTitle:[NSString stringWithFormat:@"part name %d",co]];
+            [tableView addTableColumn:column1];
+            [column1 setWidth:80];
             
         }
         
-        
-    }];
+       
+    }
     
-    [dataTask resume];
+    
+    [tableView reloadData];
 }
-
-
 
 #pragma mark - 初始化全局属性
 

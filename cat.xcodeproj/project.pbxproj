@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B6B41532202DFD560071E724 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = B6B41531202DFD560071E724 /* data.json */; };
 		B6DD039E202D5FDD00E48F30 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DD039D202D5FDD00E48F30 /* AppDelegate.m */; };
 		B6DD03A0202D5FDD00E48F30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6DD039F202D5FDD00E48F30 /* Assets.xcassets */; };
 		B6DD03A3202D5FDD00E48F30 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DD03A1202D5FDD00E48F30 /* MainMenu.xib */; };
@@ -35,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B6B41531202DFD560071E724 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		B6DD0399202D5FDD00E48F30 /* cat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6DD039C202D5FDD00E48F30 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B6DD039D202D5FDD00E48F30 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 				B6DD03C9202D636D00E48F30 /* CSYMainViewController.h */,
 				B6DD03CA202D636D00E48F30 /* CSYMainViewController.m */,
 				B6DD03CB202D636D00E48F30 /* CSYMainViewController.xib */,
+				B6B41531202DFD560071E724 /* data.json */,
 				B6DD039F202D5FDD00E48F30 /* Assets.xcassets */,
 				B6DD03A1202D5FDD00E48F30 /* MainMenu.xib */,
 				B6DD03A4202D5FDD00E48F30 /* Info.plist */,
@@ -240,6 +243,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6B41532202DFD560071E724 /* data.json in Resources */,
 				B6DD03A0202D5FDD00E48F30 /* Assets.xcassets in Resources */,
 				B6DD03CD202D636D00E48F30 /* CSYMainViewController.xib in Resources */,
 				B6DD03A3202D5FDD00E48F30 /* MainMenu.xib in Resources */,

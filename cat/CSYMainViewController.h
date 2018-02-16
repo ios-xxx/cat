@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
+
 @interface CSYMainViewController : NSWindowController
 {
     NSTableView                  *tableView;

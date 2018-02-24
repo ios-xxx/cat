@@ -8,11 +8,13 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface CSYJQuryCell : NSCell
-/** 是否要渲染背景色 */
-@property (assign,nonatomic) BOOL isBackground;
-/** title */
-@property (strong,nonatomic) NSString * cellTitle;
+@class CSYJQuryCell;
 
+/** 修改 Cell 属性 */
+typedef void(^ChangeCell)(CSYJQuryCell * cell,NSRect rect);
+
+@interface CSYJQuryCell : NSCell
+
+@property(nonatomic,copy) ChangeCell cellBlock;
 
 @end

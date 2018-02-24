@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B62474402034877500D2E1A1 /* city.txt in Resources */ = {isa = PBXBuildFile; fileRef = B624743F2034877500D2E1A1 /* city.txt */; };
+		B60B5099204141FE00373C7C /* CSYQueryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B60B5098204141FE00373C7C /* CSYQueryTableView.m */; };
+		B60B50A12041734300373C7C /* CSYRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B60B50A02041734300373C7C /* CSYRequest.m */; };
 		B6247451203487D500D2E1A1 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = B6247448203487D500D2E1A1 /* AFURLResponseSerialization.m */; };
 		B6247452203487D500D2E1A1 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6247449203487D500D2E1A1 /* AFHTTPSessionManager.m */; };
 		B6247453203487D500D2E1A1 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B624744B203487D500D2E1A1 /* AFURLSessionManager.m */; };
@@ -59,7 +60,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B624743F2034877500D2E1A1 /* city.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = city.txt; sourceTree = "<group>"; };
+		B60B5097204141FE00373C7C /* CSYQueryTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYQueryTableView.h; sourceTree = "<group>"; };
+		B60B5098204141FE00373C7C /* CSYQueryTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYQueryTableView.m; sourceTree = "<group>"; };
+		B60B509F2041734300373C7C /* CSYRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYRequest.h; sourceTree = "<group>"; };
+		B60B50A02041734300373C7C /* CSYRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYRequest.m; sourceTree = "<group>"; };
 		B6247444203487D500D2E1A1 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
 		B6247445203487D500D2E1A1 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
 		B6247446203487D500D2E1A1 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
@@ -154,9 +158,64 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B60B509A204168DE00373C7C /* 查票 */ = {
+			isa = PBXGroup;
+			children = (
+				B60B509B204168FE00373C7C /* controller */,
+				B60B509D2041691700373C7C /* modle */,
+				B60B509C2041690C00373C7C /* view */,
+			);
+			path = "查票";
+			sourceTree = "<group>";
+		};
+		B60B509B204168FE00373C7C /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B6DD03C9202D636D00E48F30 /* CSYMainViewController.h */,
+				B6DD03CA202D636D00E48F30 /* CSYMainViewController.m */,
+				B6DD03CB202D636D00E48F30 /* CSYMainViewController.xib */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B60B509C2041690C00373C7C /* view */ = {
+			isa = PBXGroup;
+			children = (
+				B641A81B20396A79004A51D6 /* CSYPopViewController.h */,
+				B641A81C20396A79004A51D6 /* CSYPopViewController.m */,
+				B641A81D20396A79004A51D6 /* CSYPopViewController.xib */,
+				B6B845082040712F009E57C8 /* CSYPopTableView.h */,
+				B6B845092040712F009E57C8 /* CSYPopTableView.m */,
+				B661CD5420373BE3009F49B7 /* CSYJQuryCell.h */,
+				B661CD5520373BE3009F49B7 /* CSYJQuryCell.m */,
+				B60B5097204141FE00373C7C /* CSYQueryTableView.h */,
+				B60B5098204141FE00373C7C /* CSYQueryTableView.m */,
+				B6B8450B204075C3009E57C8 /* NSTextFieldCellCenter.h */,
+				B6B8450C204075C3009E57C8 /* NSTextFieldCellCenter.m */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B60B509D2041691700373C7C /* modle */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = modle;
+			sourceTree = "<group>";
+		};
+		B60B509E2041731D00373C7C /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				B60B509F2041734300373C7C /* CSYRequest.h */,
+				B60B50A02041734300373C7C /* CSYRequest.m */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
 		B62474412034879400D2E1A1 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				B60B509E2041731D00373C7C /* Request */,
 				B661CD2520372835009F49B7 /* Masonry */,
 				B6247443203487D500D2E1A1 /* AFNetworking */,
 			);
@@ -166,7 +225,6 @@
 		B62474422034879C00D2E1A1 /* other */ = {
 			isa = PBXGroup;
 			children = (
-				B624743F2034877500D2E1A1 /* city.txt */,
 				B6B41531202DFD560071E724 /* data.json */,
 				B661CD2420372694009F49B7 /* PrefixHeader.pch */,
 			);
@@ -252,18 +310,7 @@
 				B62474422034879C00D2E1A1 /* other */,
 				B6DD039C202D5FDD00E48F30 /* AppDelegate.h */,
 				B6DD039D202D5FDD00E48F30 /* AppDelegate.m */,
-				B6DD03C9202D636D00E48F30 /* CSYMainViewController.h */,
-				B6DD03CA202D636D00E48F30 /* CSYMainViewController.m */,
-				B6DD03CB202D636D00E48F30 /* CSYMainViewController.xib */,
-				B6B8450B204075C3009E57C8 /* NSTextFieldCellCenter.h */,
-				B6B8450C204075C3009E57C8 /* NSTextFieldCellCenter.m */,
-				B641A81B20396A79004A51D6 /* CSYPopViewController.h */,
-				B641A81C20396A79004A51D6 /* CSYPopViewController.m */,
-				B641A81D20396A79004A51D6 /* CSYPopViewController.xib */,
-				B6B845082040712F009E57C8 /* CSYPopTableView.h */,
-				B6B845092040712F009E57C8 /* CSYPopTableView.m */,
-				B661CD5420373BE3009F49B7 /* CSYJQuryCell.h */,
-				B661CD5520373BE3009F49B7 /* CSYJQuryCell.m */,
+				B60B509A204168DE00373C7C /* 查票 */,
 				B62474412034879400D2E1A1 /* lib */,
 				B6DD039F202D5FDD00E48F30 /* Assets.xcassets */,
 				B6DD03A1202D5FDD00E48F30 /* MainMenu.xib */,
@@ -404,7 +451,6 @@
 				B661CD4A20372835009F49B7 /* Info.plist in Resources */,
 				B6DD03CD202D636D00E48F30 /* CSYMainViewController.xib in Resources */,
 				B6DD03A3202D5FDD00E48F30 /* MainMenu.xib in Resources */,
-				B62474402034877500D2E1A1 /* city.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +481,8 @@
 				B6DD039E202D5FDD00E48F30 /* AppDelegate.m in Sources */,
 				B641A81E20396A79004A51D6 /* CSYPopViewController.m in Sources */,
 				B661CD4620372835009F49B7 /* View+MASAdditions.m in Sources */,
+				B60B5099204141FE00373C7C /* CSYQueryTableView.m in Sources */,
+				B60B50A12041734300373C7C /* CSYRequest.m in Sources */,
 				B661CD4020372835009F49B7 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				B661CD4220372835009F49B7 /* MASCompositeConstraint.m in Sources */,
 				B661CD5620373BE3009F49B7 /* CSYJQuryCell.m in Sources */,

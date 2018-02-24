@@ -12,12 +12,26 @@
 // Include any system framework and library headers here that should be included in all compilation units.
 // You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
 
+#define url(uri) [@"https://kyfw.12306.cn" stringByAppendingString:uri]
+
+// DEBUG模式下,打印日志(包括函数名、行号)
+#ifdef DEBUG
+# define DLog(fmt, ...) NSLog((@"%s [Line %d] " fmt), __PRETTY_FUNCTION__, __LINE__, ##__VA_ARGS__)
+#else
+# define DLog(...)
+#endif
+
+#define TLog DLog(@"I was executed !")
+
+
 #define MAS_SHORTHAND
 #define MAS_SHORTHAND_GLOBALS
 
 
 #import "AFNetworking.h"
 #import "Masonry.h"
+
+
 
 
 

@@ -11,7 +11,6 @@
 
 @interface CSYMainViewController : NSWindowController
 {
-    NSTableView                  *tableView;
     
     NSMutableArray               *partInfos;
 }

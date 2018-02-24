@@ -401,6 +401,7 @@
 		B6DD0391202D5FDD00E48F30 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = CSY;
 				LastUpgradeCheck = 0920;
 				ORGANIZATIONNAME = hongchen;
 				TargetAttributes = {

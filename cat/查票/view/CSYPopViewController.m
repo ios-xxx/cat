@@ -22,10 +22,10 @@
     
     __weak CSYPopViewController * obj = self;
     
-    _table.closeBlock = ^(NSArray *data) {
+    _table.closeBlock = ^(NSArray *data,NSString * popTag) {
       
         PopCloseComplete closeBlock = obj.closeBlock;
-        closeBlock(data);
+        closeBlock(data,popTag);
     };
     
 }

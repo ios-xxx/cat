@@ -64,7 +64,7 @@
 - (void)tableView:(NSTableView *)aTableView setObjectValue:(id)anObject forTableColumn:(NSTableColumn *)aTableColumn row:(NSInteger)rowIndex {
     
      PopCloseComplete closeBlock = _closeBlock;
-    closeBlock(_dataArr[rowIndex]);
+    closeBlock(_dataArr[rowIndex],_popTag);
     NSLog(@"%ld",rowIndex);
 }
 

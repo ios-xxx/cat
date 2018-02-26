@@ -68,10 +68,20 @@
     // 获取所有的车站
     [self getAllStation];
     
-    _popViewController.closeBlock = ^(NSArray *data) {
+    __weak NSPopover * objPop = pop;
+    __weak CSYMainViewController * main = self;
+    
+    _popViewController.closeBlock = ^(NSArray *data,NSString * popTag) {
       
-        [pop close];
+        [objPop close];
         
+        if ([popTag isEqualToString:main.formAddress.identifier]) {
+            
+            main.formAddress.stringValue = data[1];
+        }else {
+            
+            main.toAddress.stringValue = data[1];
+        }
         DLog(@"%@",data);
     };
 }
@@ -141,47 +151,6 @@
     _tableView.selectDataArr = _selectDataArr;
 
     [_tableView reloadData];
-}
-
-
-
-
--(BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor {
-    
-   [pop showRelativeToRect:[control bounds] ofView:control preferredEdge:NSRectEdgeMaxY];
-    [control becomeFirstResponder];
-    
-    return true;
-}
-
-
--(void)controlTextDidChange:(NSNotification *)obj {
-    
-    NSTextField * object = obj.object;
-    
-    NSString * reg = [NSString stringWithFormat:@"^%@+$",object.stringValue];
-    NSPredicate *regextest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",reg];
-    //    [pop showRelativeToRect:[object bounds] ofView:object preferredEdge:NSRectEdgeMaxY];
-    
-    NSMutableArray * tmpCityArrs = [NSMutableArray array];
-    
-    for (NSArray * city in _cityArrs){
-        
-        if ([regextest evaluateWithObject:city[4]]) {
-            
-            [tmpCityArrs addObject:city];
-        }
-        
-    }
-    
-    _currentCityArr = [NSArray arrayWithArray:tmpCityArrs];
-    
-    _popViewController.table.dataArr = [NSArray arrayWithArray:_currentCityArr];
-    [_popViewController.table reloadData];
-
-//    NSLog(@"...= %@ title = %@",object.identifier, object.stringValue);
-  
-    
 }
 
 
@@ -288,6 +257,49 @@
     }
     
 }
+
+
+#pragma mark - nstextFiled delegate
+
+-(BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor {
+    
+    [pop showRelativeToRect:[control bounds] ofView:control preferredEdge:NSRectEdgeMaxY];
+    _popViewController.table.popTag = control.identifier;
+    [control becomeFirstResponder];
+    
+    return true;
+}
+
+
+-(void)controlTextDidChange:(NSNotification *)obj {
+    
+    NSTextField * object = obj.object;
+    
+    NSString * reg = [NSString stringWithFormat:@"^%@+$",object.stringValue];
+    NSPredicate *regextest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",reg];
+    //    [pop showRelativeToRect:[object bounds] ofView:object preferredEdge:NSRectEdgeMaxY];
+    
+    NSMutableArray * tmpCityArrs = [NSMutableArray array];
+    
+    for (NSArray * city in _cityArrs){
+        
+        if ([regextest evaluateWithObject:city[4]]) {
+            
+            [tmpCityArrs addObject:city];
+        }
+        
+    }
+    
+    _currentCityArr = [NSArray arrayWithArray:tmpCityArrs];
+    
+    _popViewController.table.dataArr = [NSArray arrayWithArray:_currentCityArr];
+    [_popViewController.table reloadData];
+    
+    //    NSLog(@"...= %@ title = %@",object.identifier, object.stringValue);
+    
+    
+}
+
 
 
 /** 新建 pop */

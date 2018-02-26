@@ -11,7 +11,7 @@
 
 
 /** 返回选中行的数据 */
-typedef void(^PopCloseComplete)(NSArray * data);
+typedef void(^PopCloseComplete)(NSArray * data,NSString * popTag);
 
 @interface CSYPopViewController : NSViewController
 /** pop 表格 */

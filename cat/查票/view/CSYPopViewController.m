@@ -9,9 +9,8 @@
 #import "CSYPopViewController.h"
 
 
-
 @interface CSYPopViewController ()<NSTableViewDelegate,NSTableViewDataSource>
-@property (weak) IBOutlet NSTableView *table;
+
 
 @end
 
@@ -21,9 +20,13 @@
     [super viewDidLoad];
     // Do view setup here.
     
-//    _table.delegate = self;
-//    _table.dataSource = self;
+    __weak CSYPopViewController * obj = self;
     
+    _table.closeBlock = ^(NSArray *data) {
+      
+        PopCloseComplete closeBlock = obj.closeBlock;
+        closeBlock(data);
+    };
     
 }
 

@@ -30,6 +30,16 @@
 @property (strong,nonatomic) NSMutableArray * dataArr;
 /** 选中数据 */
 @property (strong,nonatomic) NSMutableArray * selectDataArr;
+/** 城市数据 */
+@property (strong,nonatomic) NSMutableArray * cityArrs;
+/** 当前城市数据 */
+@property (strong,nonatomic) NSArray * currentCityArr;
+/** 城市交换数据 */
+@property (strong,nonatomic) NSMutableArray * exchangeCityArrs;
+
+/** 弹窗视图控制器 */
+@property (strong,nonatomic) CSYPopViewController * popViewController;
+
 @end
 
 @implementation CSYMainViewController
@@ -42,7 +52,8 @@
     pop = [NSPopover new];
     pop.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
     pop.behavior = NSPopoverBehaviorTransient;
-    pop.contentViewController = [[CSYPopViewController alloc]initWithNibName:@"CSYPopViewController" bundle:nil];
+    _popViewController = [[CSYPopViewController alloc]initWithNibName:@"CSYPopViewController" bundle:nil];
+    pop.contentViewController = _popViewController;
     pop.behavior = NSPopoverBehaviorTransient;
     
     [self.formAddress setDelegate:self];
@@ -56,7 +67,15 @@
     
     // 获取所有的车站
     [self getAllStation];
+    
+    _popViewController.closeBlock = ^(NSArray *data) {
+      
+        [pop close];
+        
+        DLog(@"%@",data);
+    };
 }
+
 
 
 
@@ -68,14 +87,15 @@
 
     AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects: @"application/json", @"text/json", @"text/javascript",@"text/html", nil];
+    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects: @"application/json", @"text/json", @"text/javascript",@"text/html",@"application/text", nil];
 
-    NSString * url = @"https://kyfw.12306.cn/otn/leftTicket/queryZ?leftTicketDTO.train_date=2018-02-25&leftTicketDTO.from_station=IZQ&leftTicketDTO.to_station=BOP&purpose_codes=0X00";
+    NSString * url = @"https://kyfw.12306.cn/otn/leftTicket/queryZ?leftTicketDTO.train_date=2018-02-30&leftTicketDTO.from_station=IZQ&leftTicketDTO.to_station=BOP&purpose_codes=0X00";
 
     [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
 
-         [self tableReload:responseObject];
+        NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
+         [self tableReload:json];
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 
@@ -124,12 +144,46 @@
 }
 
 
--(void)controlTextDidBeginEditing:(NSNotification *)obj {
+
+
+-(BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor {
+    
+   [pop showRelativeToRect:[control bounds] ofView:control preferredEdge:NSRectEdgeMaxY];
+    [control becomeFirstResponder];
+    
+    return true;
+}
+
+
+-(void)controlTextDidChange:(NSNotification *)obj {
     
     NSTextField * object = obj.object;
-    [pop showRelativeToRect:[object bounds] ofView:object preferredEdge:NSRectEdgeMaxY];
-    NSLog(@"...= %@",object.identifier);
+    
+    NSString * reg = [NSString stringWithFormat:@"^%@+$",object.stringValue];
+    NSPredicate *regextest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",reg];
+    //    [pop showRelativeToRect:[object bounds] ofView:object preferredEdge:NSRectEdgeMaxY];
+    
+    NSMutableArray * tmpCityArrs = [NSMutableArray array];
+    
+    for (NSArray * city in _cityArrs){
+        
+        if ([regextest evaluateWithObject:city[4]]) {
+            
+            [tmpCityArrs addObject:city];
+        }
+        
+    }
+    
+    _currentCityArr = [NSArray arrayWithArray:tmpCityArrs];
+    
+    _popViewController.table.dataArr = [NSArray arrayWithArray:_currentCityArr];
+    [_popViewController.table reloadData];
+
+//    NSLog(@"...= %@ title = %@",object.identifier, object.stringValue);
+  
+    
 }
+
 
 /** 获取所有车站 */
 -(void)getAllStation {
@@ -144,13 +198,31 @@
         NSString * responseStr = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
         
         if (responseStr.length < 1) return ;
+        
+        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+        NSString *path = [paths objectAtIndex:0];
+        NSString *filePath = [path stringByAppendingPathComponent:@"city.txt"];
+        
+        /** 判断文件是否存在 */
         if([self isFileExist:@"city.txt" context:responseStr]){
         
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
-            NSString *path = [paths objectAtIndex:0];
-            NSString *filePath = [path stringByAppendingPathComponent:@"city.txt"];
-            
+            /** 写入内容 */
             [self writeFile:filePath context:responseStr];
+            
+        }else { //不存在
+            
+            /** 创建文件并写入内容 */
+            NSFileManager * fileManger = [NSFileManager defaultManager];
+            BOOL isFile =    [fileManger createFileAtPath:filePath contents:nil attributes:nil];
+            
+            /** 新建成功  */
+            if (isFile) {
+                
+                /** 写入内容 */
+                [self writeFile:filePath context:responseStr];
+            }
+            
+            
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -170,16 +242,7 @@
     NSString *filePath = [path stringByAppendingPathComponent:fileName];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL result = [fileManager fileExistsAtPath:filePath];
-    if (!result) {
-        
-     BOOL isFile =    [fileManager createFileAtPath:filePath contents:nil attributes:nil];
-        if (isFile) {
-            
-            DLog(@"create file ok");
-            /** 写入文件 */
-            [self writeFile:path context:context];
-        }
-    }
+   
     return result;
 }
 
@@ -195,14 +258,30 @@
     NSMutableString * contexts = [NSMutableString stringWithString:context];
     NSRange range = [context rangeOfString:@"="];
     [contexts deleteCharactersInRange:NSMakeRange(0, range.location+1)];
+    [contexts deleteCharactersInRange:NSMakeRange(0, 2)];
+    [contexts deleteCharactersInRange:NSMakeRange(contexts.length-2, 2)];
     
     
     NSError * err;
     BOOL isWrite = [contexts writeToFile: path atomically:true encoding:NSUTF8StringEncoding error:&err];
     
-    if (isWrite) {
+    if (isWrite) {  // 写入成功
+        
+//        取出所有车站转换为拼音
+        NSArray * cityArr = [contexts componentsSeparatedByString:@"@"];
+        [self.cityArrs removeAllObjects];
+        
+        for (NSString * str in cityArr){
+            
+            NSMutableArray * tmpArrs = [NSMutableArray arrayWithArray:[str componentsSeparatedByString:@"|"]];
+            [tmpArrs removeObject:tmpArrs.lastObject];
+            [_cityArrs addObject:tmpArrs];
+            
+            DLog(@"%@",str);
+        }
         
         DLog(@"write ok");
+        
     }else {
         
         DLog(@"write error=%@",err);
@@ -235,5 +314,13 @@
     if (_selectDataArr) return _selectDataArr;
     return _selectDataArr = [NSMutableArray new];
 }
+
+-(NSMutableArray *)cityArrs {
+    
+    if (_cityArrs) return _cityArrs;
+    
+    return  _cityArrs = [NSMutableArray new];
+}
+
 
 @end

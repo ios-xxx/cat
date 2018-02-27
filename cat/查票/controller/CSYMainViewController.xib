@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="CSYMainViewController">
             <connections>
                 <outlet property="bgView" destination="se5-gp-TjO" id="suY-JG-t5b"/>
+                <outlet property="currentDate" destination="1hB-H5-I9c" id="FfM-M4-jgA"/>
                 <outlet property="formAddress" destination="KsM-fL-Bxm" id="d8M-EM-BMj"/>
                 <outlet property="tableView" destination="EHT-Yb-wJP" id="OvU-nZ-r6L"/>
                 <outlet property="toAddress" destination="PEg-aw-3EG" id="uO2-BN-2UH"/>
@@ -243,11 +244,11 @@
                             </subviews>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="tAV-mE-fgA">
-                            <rect key="frame" x="-7" y="8" width="0.0" height="15"/>
+                            <rect key="frame" x="1" y="7" width="0.0" height="16"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="V2f-aM-VPl">
-                            <rect key="frame" x="-14" y="15" width="15" height="0.0"/>
+                            <rect key="frame" x="-15" y="23" width="16" height="0.0"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="c5N-V2-vcO">
@@ -324,6 +325,9 @@
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
+                        <connections>
+                            <action selector="dateClick:" target="-2" id="zhD-71-ank"/>
+                        </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecA-DJ-dHo">
                         <rect key="frame" x="761" y="542" width="60" height="27"/>

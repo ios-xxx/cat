@@ -48,10 +48,10 @@
 @property (strong,nonatomic)  CSYDatePopViewController * datePopViewController;
 
 /** 当前乘车日期 */
-@property (weak) IBOutlet NSDatePicker *currentDate;
-/** 选择日期 */
-@property (weak) IBOutlet NSDatePicker *selectDate;
+@property (weak) IBOutlet NSButton *currentDate;
 
+/** 保存未来60天的日期 */
+@property (strong,nonatomic) NSMutableArray * saveDateArrs;
 
 @end
 
@@ -319,11 +319,20 @@
 /** 初始化乘车日期 */
 -(void)initWithDate {
     
-    _currentDate.minDate = [NSDate date];
-    _selectDate.minDate = [NSDate date];
-    _selectDate.maxDate = [NSDate dateWithTimeIntervalSinceNow:5184000000];
+    NSDate * date = [NSDate date];
+    NSDateFormatter * formatter = [NSDateFormatter new];
+    [formatter setDateFormat:[NSString stringWithFormat:@"yyyy/MM/dd"]];
+    NSString * currentDateStr = [formatter stringFromDate:date];
+    _currentDate.title = currentDateStr;
     
 }
+
+/** 响应日期栏被单击 */
+- (IBAction)dateClick:(id)sender {
+    
+    [datePop showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSRectEdgeMaxY];
+}
+
 
 
 
@@ -373,5 +382,30 @@
     return  _cityArrs = [NSMutableArray new];
 }
 
+-(NSMutableArray *)saveDateArrs {
+    
+    if (_saveDateArrs) return _saveDateArrs;
+    
+    _saveDateArrs = [NSMutableArray new];
+    
+    for (int i = 0; i < 60; i++) {
+        
+        NSDateComponents * components2 = [[NSDateComponents alloc] init];
+        components2.year = 0;
+        components2.day = 60;
+        NSCalendar *calendar3 = [NSCalendar currentCalendar];
+        NSDate *currentDate = [NSDate date];
+        
+        NSDate *nextData = [calendar3 dateByAddingComponents:components2 toDate:currentDate options:NSCalendarMatchStrictly];
+        NSDateFormatter * formatter1 = [[NSDateFormatter alloc] init];
+        formatter1.dateFormat = @"yyyy/MM/dd";
+        NSString * dateStr = [formatter1 stringFromDate:nextData];
+        
+        [_saveDateArrs addObject:dateStr];
+    }
+    
+    return _saveDateArrs;
+    
+}
 
 @end

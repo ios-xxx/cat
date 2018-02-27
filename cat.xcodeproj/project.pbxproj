@@ -29,6 +29,8 @@
 		B661CD4920372835009F49B7 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = B661CD3E20372835009F49B7 /* MASViewAttribute.m */; };
 		B661CD4A20372835009F49B7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B661CD3F20372835009F49B7 /* Info.plist */; };
 		B661CD5620373BE3009F49B7 /* CSYJQuryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B661CD5520373BE3009F49B7 /* CSYJQuryCell.m */; };
+		B6A0BDFC20458356009A8084 /* CSYDatePopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BDFA20458356009A8084 /* CSYDatePopViewController.m */; };
+		B6A0BDFD20458356009A8084 /* CSYDatePopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6A0BDFB20458356009A8084 /* CSYDatePopViewController.xib */; };
 		B6B41532202DFD560071E724 /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = B6B41531202DFD560071E724 /* data.json */; };
 		B6B8450A2040712F009E57C8 /* CSYPopTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B845092040712F009E57C8 /* CSYPopTableView.m */; };
 		B6B8450D204075C3009E57C8 /* NSTextFieldCellCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B8450C204075C3009E57C8 /* NSTextFieldCellCenter.m */; };
@@ -109,6 +111,9 @@
 		B661CD3F20372835009F49B7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B661CD5420373BE3009F49B7 /* CSYJQuryCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYJQuryCell.h; sourceTree = "<group>"; };
 		B661CD5520373BE3009F49B7 /* CSYJQuryCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYJQuryCell.m; sourceTree = "<group>"; };
+		B6A0BDF920458356009A8084 /* CSYDatePopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYDatePopViewController.h; sourceTree = "<group>"; };
+		B6A0BDFA20458356009A8084 /* CSYDatePopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYDatePopViewController.m; sourceTree = "<group>"; };
+		B6A0BDFB20458356009A8084 /* CSYDatePopViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSYDatePopViewController.xib; sourceTree = "<group>"; };
 		B6B41531202DFD560071E724 /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
 		B6B845082040712F009E57C8 /* CSYPopTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYPopTableView.h; sourceTree = "<group>"; };
 		B6B845092040712F009E57C8 /* CSYPopTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYPopTableView.m; sourceTree = "<group>"; };
@@ -192,6 +197,9 @@
 				B60B5098204141FE00373C7C /* CSYQueryTableView.m */,
 				B6B8450B204075C3009E57C8 /* NSTextFieldCellCenter.h */,
 				B6B8450C204075C3009E57C8 /* NSTextFieldCellCenter.m */,
+				B6A0BDF920458356009A8084 /* CSYDatePopViewController.h */,
+				B6A0BDFA20458356009A8084 /* CSYDatePopViewController.m */,
+				B6A0BDFB20458356009A8084 /* CSYDatePopViewController.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -447,6 +455,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6B41532202DFD560071E724 /* data.json in Resources */,
+				B6A0BDFD20458356009A8084 /* CSYDatePopViewController.xib in Resources */,
 				B6DD03A0202D5FDD00E48F30 /* Assets.xcassets in Resources */,
 				B641A81F20396A79004A51D6 /* CSYPopViewController.xib in Resources */,
 				B661CD4A20372835009F49B7 /* Info.plist in Resources */,
@@ -486,6 +495,7 @@
 				B60B50A12041734300373C7C /* CSYRequest.m in Sources */,
 				B661CD4020372835009F49B7 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				B661CD4220372835009F49B7 /* MASCompositeConstraint.m in Sources */,
+				B6A0BDFC20458356009A8084 /* CSYDatePopViewController.m in Sources */,
 				B661CD5620373BE3009F49B7 /* CSYJQuryCell.m in Sources */,
 				B6247452203487D500D2E1A1 /* AFHTTPSessionManager.m in Sources */,
 				B661CD4120372835009F49B7 /* ViewController+MASAdditions.m in Sources */,

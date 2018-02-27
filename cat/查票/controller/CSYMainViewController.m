@@ -11,10 +11,15 @@
 #import "CSYPopViewController.h"
 #import "CSYQueryTableView.h"
 
+#import "CSYDatePopViewController.h"
+
 
 @interface CSYMainViewController ()<NSTableViewDelegate,NSTableViewDataSource,NSTextFieldDelegate>
 {
+    /** 车站 pop */
     NSPopover * pop;
+    /** 日期 pop */
+    NSPopover * datePop;
 }
 
 /** 出发地 */
@@ -37,8 +42,10 @@
 /** 城市交换数据 */
 @property (strong,nonatomic) NSMutableArray * exchangeCityArrs;
 
-/** 弹窗视图控制器 */
+/** 车站弹窗视图控制器 */
 @property (strong,nonatomic) CSYPopViewController * popViewController;
+/** 日期弹窗视图控制器 */
+@property (strong,nonatomic)  CSYDatePopViewController * datePopViewController;
 
 /** 当前乘车日期 */
 @property (weak) IBOutlet NSDatePicker *currentDate;
@@ -61,6 +68,13 @@
     _popViewController = [[CSYPopViewController alloc]initWithNibName:@"CSYPopViewController" bundle:nil];
     pop.contentViewController = _popViewController;
     pop.behavior = NSPopoverBehaviorTransient;
+    
+    datePop = [NSPopover new];
+    datePop.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
+    datePop.behavior = NSPopoverBehaviorTransient;
+    _datePopViewController = [[CSYDatePopViewController alloc]initWithNibName:@"CSYDatePopViewController" bundle:nil];
+    datePop.contentViewController = _datePopViewController;
+    datePop.behavior = NSPopoverBehaviorTransient;
     
     [self.formAddress setDelegate:self];
     [self.toAddress setDelegate:self];
@@ -291,7 +305,7 @@
     
 }
 
-/** 交换出发  */
+/** 交换车站  */
 - (IBAction)exchange:(id)sender {
     
     NSString * fromAddress = _formAddress.stringValue;
@@ -310,25 +324,11 @@
     _selectDate.maxDate = [NSDate dateWithTimeIntervalSinceNow:5184000000];
     
 }
-- (IBAction)adf:(id)sender {
-    
-    DLog(@" log...");
-}
+
 
 
 
 #pragma mark - 弹窗方法
-
-/** 新建 pop */
--(void)createPopView {
-    
-    pop = [NSPopover new];
-    pop.appearance = [NSAppearance appearanceNamed:NSAppearanceNameAqua];
-    pop.behavior = NSPopoverBehaviorTransient;
-//    pop.contentViewController = self.contentViewController;
-    pop.behavior = NSPopoverBehaviorTransient;
-    [pop showRelativeToRect:[_formAddress bounds] ofView:_bgView preferredEdge:NSRectEdgeMaxY];
-}
 
 /** 响应选择城市内容回调 */
 -(void)selectCityComplete {

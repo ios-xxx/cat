@@ -41,11 +41,7 @@
 //加载数据的时候每个单元格数据都从此获取
 -(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row
 {
-//    NSButtonCell * textCell = [tableColumn dataCell];
-//    [textCell setState:1];
-//    [textCell setAction:@selector(cellClick:)];
-//    [textCell setTarget:self];
-//    [textCell setTag:row];
+
     
     return nil;
 }
@@ -55,7 +51,6 @@
     
      NSButtonCell * textCell = [tableColumn dataCell];
     NSString * titleStr = [_dataArr[row] objectAtIndex:1];
-    [textCell setBackgroundColor:[NSColor whiteColor]];
     [textCell setTitle:titleStr];
     
 }

@@ -36,7 +36,7 @@
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableHeaderCell>
-                                        <buttonCell key="dataCell" type="bevel" title="title" bezelStyle="rounded" alignment="center" state="on" inset="2" id="PhX-N3-9lb">
+                                        <buttonCell key="dataCell" type="bevel" title="title" bezelStyle="rounded" alignment="center" state="on" allowsMixedState="YES" inset="2" id="PhX-N3-9lb">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>

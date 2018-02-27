@@ -40,6 +40,12 @@
 /** 弹窗视图控制器 */
 @property (strong,nonatomic) CSYPopViewController * popViewController;
 
+/** 当前乘车日期 */
+@property (weak) IBOutlet NSDatePicker *currentDate;
+/** 选择日期 */
+@property (weak) IBOutlet NSDatePicker *selectDate;
+
+
 @end
 
 @implementation CSYMainViewController
@@ -63,31 +69,16 @@
     [self.toAddress resignFirstResponder];
     [self.formAddress setIdentifier:@"formAddress"];
     [self.toAddress setIdentifier:@"toAddress"];
+ 
     
-    
-    // 获取所有的车站
+//  获取所有的车站
     [self getAllStation];
+//  响应选择城市内容回调
+    [self selectCityComplete];
+//  初始化日期方法
+    [self initWithDate];
     
-    __weak NSPopover * objPop = pop;
-    __weak CSYMainViewController * main = self;
-    
-    _popViewController.closeBlock = ^(NSArray *data,NSString * popTag) {
-      
-        [objPop close];
-        
-        if ([popTag isEqualToString:main.formAddress.identifier]) {
-            
-            main.formAddress.stringValue = data[1];
-        }else {
-            
-            main.toAddress.stringValue = data[1];
-        }
-        DLog(@"%@",data);
-    };
 }
-
-
-
 
 
 
@@ -300,7 +291,33 @@
     
 }
 
+/** 交换出发  */
+- (IBAction)exchange:(id)sender {
+    
+    NSString * fromAddress = _formAddress.stringValue;
+    _formAddress.stringValue = _toAddress.stringValue;
+    _toAddress.stringValue   = fromAddress;
+}
 
+
+#pragma mark - 日期方法
+
+/** 初始化乘车日期 */
+-(void)initWithDate {
+    
+    _currentDate.minDate = [NSDate date];
+    _selectDate.minDate = [NSDate date];
+    _selectDate.maxDate = [NSDate dateWithTimeIntervalSinceNow:5184000000];
+    
+}
+- (IBAction)adf:(id)sender {
+    
+    DLog(@" log...");
+}
+
+
+
+#pragma mark - 弹窗方法
 
 /** 新建 pop */
 -(void)createPopView {
@@ -311,6 +328,28 @@
 //    pop.contentViewController = self.contentViewController;
     pop.behavior = NSPopoverBehaviorTransient;
     [pop showRelativeToRect:[_formAddress bounds] ofView:_bgView preferredEdge:NSRectEdgeMaxY];
+}
+
+/** 响应选择城市内容回调 */
+-(void)selectCityComplete {
+    
+    __weak NSPopover * objPop = pop;
+    __weak CSYMainViewController * main = self;
+    
+    _popViewController.closeBlock = ^(NSArray *data,NSString * popTag) {
+        
+        [objPop close];
+        
+        if ([popTag isEqualToString:main.formAddress.identifier]) {
+            
+            main.formAddress.stringValue = data[1];
+        }else {
+            
+            main.toAddress.stringValue = data[1];
+        }
+        DLog(@"%@",data);
+    };
+    
 }
 
 #pragma mark - 初始化全局属性

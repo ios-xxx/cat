@@ -31,16 +31,19 @@
 
 
 @property (weak) IBOutlet NSView *bgView;
-/** 数据 */
+/** 车站数据 */
 @property (strong,nonatomic) NSMutableArray * dataArr;
-/** 选中数据 */
+/** 选中车站数据 */
 @property (strong,nonatomic) NSMutableArray * selectDataArr;
 /** 城市数据 */
 @property (strong,nonatomic) NSMutableArray * cityArrs;
 /** 当前城市数据 */
 @property (strong,nonatomic) NSArray * currentCityArr;
-/** 城市交换数据 */
-@property (strong,nonatomic) NSMutableArray * exchangeCityArrs;
+
+/** 当前选择出发城市数据 */
+@property (strong,nonatomic) NSArray * currentSelectFromCityArr;
+/** 当前选择目的地城市数据 */
+@property (strong,nonatomic) NSArray * currentSelectToCityArr;
 
 /** 车站弹窗视图控制器 */
 @property (strong,nonatomic) CSYPopViewController * popViewController;
@@ -49,9 +52,23 @@
 
 /** 当前乘车日期 */
 @property (weak) IBOutlet NSButton *currentDate;
+/** 学生票 */
+@property (weak) IBOutlet NSButton *studentCheck;
+
+/** 成人票 */
+@property (weak) IBOutlet NSButton *adultCheck;
 
 /** 保存未来60天的日期 */
 @property (strong,nonatomic) NSMutableArray * saveDateArrs;
+
+/** 出发日期 */
+@property (strong,nonatomic) NSString * trainDateStr;
+/** 出发地车站码 */
+@property (strong,nonatomic) NSString * fromStationStr;
+/** 目的地车站码 */
+@property (strong,nonatomic) NSString * toStation;
+/** 车票类型 */
+@property (strong,nonatomic) NSString * purposeCodesStr;
 
 @end
 
@@ -61,20 +78,11 @@
 - (void)windowDidLoad {
     [super windowDidLoad];
     
+    /** 初始化车站 Pop */
+    [self initWithStationPop];
+    /** 初始化日期 Pop */
+    [self initWithDatePop];
     
-    pop = [NSPopover new];
-    pop.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
-    pop.behavior = NSPopoverBehaviorTransient;
-    _popViewController = [[CSYPopViewController alloc]initWithNibName:@"CSYPopViewController" bundle:nil];
-    pop.contentViewController = _popViewController;
-    pop.behavior = NSPopoverBehaviorTransient;
-    
-    datePop = [NSPopover new];
-    datePop.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
-    datePop.behavior = NSPopoverBehaviorTransient;
-    _datePopViewController = [[CSYDatePopViewController alloc]initWithNibName:@"CSYDatePopViewController" bundle:nil];
-    datePop.contentViewController = _datePopViewController;
-    datePop.behavior = NSPopoverBehaviorTransient;
     
     [self.formAddress setDelegate:self];
     [self.toAddress setDelegate:self];
@@ -87,8 +95,6 @@
     
 //  获取所有的车站
     [self getAllStation];
-//  响应选择城市内容回调
-    [self selectCityComplete];
 //  初始化日期方法
     [self initWithDate];
     
@@ -104,26 +110,62 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects: @"application/json", @"text/json", @"text/javascript",@"text/html",@"application/text", nil];
+    
+   
+    NSError* error = NULL;
+    NSRegularExpression* regex = [NSRegularExpression regularExpressionWithPattern:@"/"
+                                                                           options:0
+                                                                             error:&error];
+    NSString* sample = _currentDate.title;
 
-    NSString * url = @"https://kyfw.12306.cn/otn/leftTicket/queryZ?leftTicketDTO.train_date=2018-02-30&leftTicketDTO.from_station=IZQ&leftTicketDTO.to_station=BOP&purpose_codes=0X00";
+    NSString * dateStr = [regex stringByReplacingMatchesInString:sample
+                                                       options:0
+                                                         range:NSMakeRange(0, sample.length)
+                                                  withTemplate:@"-"];
+    
+    NSString * fromCityCodeStr = _currentSelectFromCityArr[2] == nil ? @"GZQ":_currentSelectFromCityArr[2];
+    NSString * toCityCodeStr   = _currentSelectToCityArr[2]   == nil ? @"WHN": _currentSelectToCityArr[2];
 
+    NSString * url = [NSString stringWithFormat:@"https://kyfw.12306.cn/otn/leftTicket/queryZ?leftTicketDTO.train_date=%@&leftTicketDTO.from_station=%@&leftTicketDTO.to_station=%@&purpose_codes=%@",dateStr,fromCityCodeStr,toCityCodeStr,self.purposeCodesStr];
+    
+    
+//    DLog(@"url = %@",url);
+    
     [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-
+        
+        
+        NSString * currentUrl = task.currentRequest.URL.absoluteString;
+        
+        if ([currentUrl rangeOfString:@"error"].location != NSNotFound ) {
+           
+            DLog(@"%@",[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding]);
+            DLog(@"网络请求出错了---");
+            return ;
+        }
+        
+        
         NSDictionary * json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:nil];
-         [self tableReload:json];
+        
+        
+        [self tableReload:json];
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 
         NSLog(@"%@",error);
     }];
-    
-//    [self tableReload:nil];
-
 }
 
 -(void)tableReload:(NSDictionary *)data {
 
-//    NSLog(@"data = %@",[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding]);
+//    if (data == nil) {
+//        
+//        
+//        DLog(@"网络访问出错了");
+//        return;
+//    }
+//    
+//    DLog(@"data = %@",data);
+    
     
     NSDictionary * dict = data;
     
@@ -305,13 +347,39 @@
     
 }
 
+#pragma mark - 车站交换
 /** 交换车站  */
 - (IBAction)exchange:(id)sender {
     
     NSString * fromAddress = _formAddress.stringValue;
     _formAddress.stringValue = _toAddress.stringValue;
     _toAddress.stringValue   = fromAddress;
+    
+    /** 创建临时数组存放交换数据 */
+    NSArray * tmpExchangeSelectCityArr  =  _currentSelectFromCityArr;
+    _currentSelectFromCityArr =  _currentSelectToCityArr;
+    _currentSelectToCityArr   =  tmpExchangeSelectCityArr;
 }
+
+
+#pragma mark - 响应选择车票类型（学生，成人）
+
+/** 响应成人单选框被选中 */
+- (IBAction)adultClick:(NSButton *)sender {
+    
+    _studentCheck.state = 0;
+    sender.state = 1;
+    _purposeCodesStr = @"ADULT";
+}
+
+/** 响应学生单选框被选中 */
+- (IBAction)studentCheck:(NSButton *)sender {
+    
+    sender.state = 1;
+    _adultCheck.state = 0;
+    _purposeCodesStr = @"0X00";
+}
+
 
 
 #pragma mark - 日期方法
@@ -331,6 +399,8 @@
 - (IBAction)dateClick:(id)sender {
     
     [datePop showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSRectEdgeMaxY];
+    [_datePopViewController.table reloadData];
+    
 }
 
 
@@ -338,6 +408,20 @@
 
 
 #pragma mark - 弹窗方法
+/** 初始化车站 pop */
+-(void)initWithStationPop {
+    
+    pop = [NSPopover new];
+    pop.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
+    pop.behavior = NSPopoverBehaviorTransient;
+    _popViewController = [[CSYPopViewController alloc]initWithNibName:@"CSYPopViewController" bundle:nil];
+    pop.contentViewController = _popViewController;
+    pop.behavior = NSPopoverBehaviorTransient;
+    
+    /** 响应选择城市内容回调 */
+    [self selectCityComplete];
+}
+
 
 /** 响应选择城市内容回调 */
 -(void)selectCityComplete {
@@ -351,15 +435,59 @@
         
         if ([popTag isEqualToString:main.formAddress.identifier]) {
             
+            main.currentSelectFromCityArr = data;
             main.formAddress.stringValue = data[1];
         }else {
             
+            main.currentSelectToCityArr = data;
             main.toAddress.stringValue = data[1];
         }
-        DLog(@"%@",data);
     };
     
 }
+
+/** 初始化日期 pop */
+-(void)initWithDatePop {
+    
+    datePop = [NSPopover new];
+    datePop.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
+    datePop.behavior = NSPopoverBehaviorTransient;
+    _datePopViewController = [[CSYDatePopViewController alloc]initWithNibName:@"CSYDatePopViewController" bundle:nil];
+    
+    datePop.contentViewController = _datePopViewController;
+    datePop.behavior = NSPopoverBehaviorTransient;
+    
+   NSMutableArray * tmpSelectDateArrs = [NSMutableArray new];
+    
+    NSInteger count =self.saveDateArrs.count;
+    for (int i = 0; i < count; i++) {
+        
+        [tmpSelectDateArrs addObject:@(0)];
+    }
+    
+    _datePopViewController.dataArr = [NSArray arrayWithArray:_saveDateArrs];
+    _datePopViewController.selectDateArr = tmpSelectDateArrs;
+    
+//    响应选中日期回调
+    [self selectDateComplete];
+    
+}
+
+/** 响应选中日期回调 */
+-(void)selectDateComplete {
+    
+    __weak    CSYMainViewController * main = self;
+    _datePopViewController.selectDateBlcok = ^(NSString *dateStr) {
+      
+        main.currentDate.title = dateStr;
+        
+    };
+    
+}
+
+
+
+
 
 #pragma mark - 初始化全局属性
 
@@ -392,7 +520,7 @@
         
         NSDateComponents * components2 = [[NSDateComponents alloc] init];
         components2.year = 0;
-        components2.day = 60;
+        components2.day = i;
         NSCalendar *calendar3 = [NSCalendar currentCalendar];
         NSDate *currentDate = [NSDate date];
         
@@ -406,6 +534,13 @@
     
     return _saveDateArrs;
     
+}
+
+-(NSString *)purposeCodesStr {
+    
+    if (_purposeCodesStr != nil) return _purposeCodesStr;
+    
+    return _purposeCodesStr = @"ADULT";
 }
 
 @end

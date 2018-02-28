@@ -7,7 +7,6 @@
 //
 
 #import "CSYQueryTableView.h"
-#import "CSYJQuryCell.h"
 
 @implementation CSYQueryTableView
 
@@ -31,7 +30,7 @@
         [column.headerCell setTitle:titleArr[i]];
         [column.headerCell setAlignment:NSTextAlignmentCenter];
         [column setIdentifier:[NSString stringWithFormat:@"name%d",i]];
-        [column setWidth:80];
+        [column setWidth:85];
         
     }
     

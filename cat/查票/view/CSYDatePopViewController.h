@@ -8,6 +8,18 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface CSYDatePopViewController : NSViewController
+/// 返回指定选中的日期
+typedef void(^SelectDateComplete) (NSString * dateStr);
+
+@interface CSYDatePopViewController : NSViewController<NSTableViewDelegate,NSTableViewDataSource>
+
+/** 表格数据 */
+@property (strong,nonatomic) NSArray * dataArr;
+/** 选中数据 */
+@property (strong,nonatomic) NSMutableArray * selectDateArr;
+/** 日期表格 */
+@property (weak) IBOutlet NSTableView *table;
+
+@property(copy,nonatomic) SelectDateComplete selectDateBlcok;
 
 @end

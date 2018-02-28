@@ -7,29 +7,30 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CSYDatePopViewController">
             <connections>
+                <outlet property="table" destination="h1Y-bw-5Lk" id="VfV-Cv-i4a"/>
                 <outlet property="view" destination="Hz6-mo-xeY" id="0bl-1N-x8E"/>
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <customView id="Hz6-mo-xeY">
-            <rect key="frame" x="0.0" y="0.0" width="132" height="272"/>
+            <rect key="frame" x="0.0" y="0.0" width="112" height="272"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
             <subviews>
                 <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8zv-xN-bNk">
-                    <rect key="frame" x="0.0" y="0.0" width="132" height="272"/>
+                    <rect key="frame" x="0.0" y="0.0" width="112" height="272"/>
                     <clipView key="contentView" id="afh-xe-lCs">
-                        <rect key="frame" x="1" y="23" width="130" height="248"/>
+                        <rect key="frame" x="1" y="0.0" width="110" height="271"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="sCU-n7-mI6" id="h1Y-bw-5Lk">
-                                <rect key="frame" x="0.0" y="0.0" width="130" height="248"/>
+                                <rect key="frame" x="0.0" y="0.0" width="110" height="248"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
                                 <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
-                                    <tableColumn identifier="" width="127" minWidth="40" maxWidth="1000" id="doG-ab-jEX">
+                                    <tableColumn identifier="" width="107" minWidth="40" maxWidth="1000" id="doG-ab-jEX">
                                         <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -42,6 +43,10 @@
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                     </tableColumn>
                                 </tableColumns>
+                                <connections>
+                                    <outlet property="dataSource" destination="Hz6-mo-xeY" id="GCp-Ec-KBt"/>
+                                    <outlet property="delegate" destination="Hz6-mo-xeY" id="G7l-7s-Uo7"/>
+                                </connections>
                             </tableView>
                         </subviews>
                     </clipView>
@@ -54,7 +59,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </scroller>
                     <tableHeaderView key="headerView" id="sCU-n7-mI6">
-                        <rect key="frame" x="0.0" y="0.0" width="130" height="23"/>
+                        <rect key="frame" x="0.0" y="0.0" width="110" height="23"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </tableHeaderView>
                 </scrollView>
@@ -65,7 +70,7 @@
                 <constraint firstAttribute="bottom" secondItem="8zv-xN-bNk" secondAttribute="bottom" id="mfg-uW-CgH"/>
                 <constraint firstItem="8zv-xN-bNk" firstAttribute="top" secondItem="Hz6-mo-xeY" secondAttribute="top" id="uf7-9M-Es2"/>
             </constraints>
-            <point key="canvasLocation" x="-43" y="168"/>
+            <point key="canvasLocation" x="-53" y="168"/>
         </customView>
     </objects>
 </document>

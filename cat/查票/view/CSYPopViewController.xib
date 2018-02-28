@@ -27,7 +27,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="218" height="293"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <size key="intercellSpacing" width="3" height="2"/>
-                                <color key="backgroundColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
+                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                 <color key="gridColor" name="alternateSelectedControlTextColor" catalog="System" colorSpace="catalog"/>
                                 <tableColumns>
                                     <tableColumn identifier="column" width="215" minWidth="10" maxWidth="3.4028234663852886e+38" id="7sw-mr-haG">
@@ -36,9 +36,9 @@
                                             <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </tableHeaderCell>
-                                        <buttonCell key="dataCell" type="bevel" title="title" bezelStyle="rounded" alignment="center" state="on" allowsMixedState="YES" inset="2" id="PhX-N3-9lb">
+                                        <buttonCell key="dataCell" type="roundRect" title="title" bezelStyle="roundedRect" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="PhX-N3-9lb">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                            <font key="font" metaFont="system"/>
+                                            <font key="font" metaFont="cellTitle"/>
                                         </buttonCell>
                                         <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                     </tableColumn>

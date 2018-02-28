@@ -7,9 +7,12 @@
     <objects>
         <customObject id="-2" userLabel="File's Owner" customClass="CSYMainViewController">
             <connections>
+                <outlet property="adult" destination="g0m-pe-3Sh" id="pDe-Xn-9cA"/>
+                <outlet property="adultCheck" destination="g0m-pe-3Sh" id="alO-hT-Y1V"/>
                 <outlet property="bgView" destination="se5-gp-TjO" id="suY-JG-t5b"/>
                 <outlet property="currentDate" destination="1hB-H5-I9c" id="FfM-M4-jgA"/>
                 <outlet property="formAddress" destination="KsM-fL-Bxm" id="d8M-EM-BMj"/>
+                <outlet property="studentCheck" destination="K7A-hh-Dxg" id="CRZ-6F-IUj"/>
                 <outlet property="tableView" destination="EHT-Yb-wJP" id="OvU-nZ-r6L"/>
                 <outlet property="toAddress" destination="PEg-aw-3EG" id="uO2-BN-2UH"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
@@ -19,23 +22,22 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="票猫" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-            <rect key="contentRect" x="196" y="240" width="1250" height="600"/>
+            <rect key="contentRect" x="196" y="240" width="1332" height="580"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
             <value key="minSize" type="size" width="1250" height="600"/>
             <value key="maxSize" type="size" width="1250" height="600"/>
             <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="1250" height="600"/>
+                <rect key="frame" x="0.0" y="0.0" width="1332" height="580"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                 <subviews>
-                    <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNE-gf-A2O">
-                        <rect key="frame" x="20" y="8" width="1231" height="525"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <clipView key="contentView" ambiguous="YES" id="KZP-vj-KIp">
-                            <rect key="frame" x="1" y="0.0" width="1229" height="524"/>
+                    <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNE-gf-A2O">
+                        <rect key="frame" x="8" y="8" width="1316" height="530"/>
+                        <clipView key="contentView" id="KZP-vj-KIp">
+                            <rect key="frame" x="1" y="0.0" width="1314" height="529"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="c5N-V2-vcO" id="EHT-Yb-wJP" customClass="CSYQueryTableView">
-                                    <rect key="frame" x="0.0" y="0.0" width="1229" height="501"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1314" height="506"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -47,7 +49,7 @@
                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             </tableHeaderCell>
-                                            <buttonCell key="dataCell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="left" inset="2" id="qFi-9y-YM2">
+                                            <buttonCell key="dataCell" type="check" title="车次" bezelStyle="regularSquare" imagePosition="left" inset="2" id="qFi-9y-YM2">
                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                                 <font key="font" metaFont="system"/>
                                             </buttonCell>
@@ -243,21 +245,24 @@
                                 </tableView>
                             </subviews>
                         </clipView>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="530" id="Bif-jy-liS"/>
+                        </constraints>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="tAV-mE-fgA">
-                            <rect key="frame" x="1" y="7" width="0.0" height="16"/>
+                            <rect key="frame" x="-7" y="8" width="0.0" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="V2f-aM-VPl">
-                            <rect key="frame" x="-15" y="23" width="16" height="0.0"/>
+                            <rect key="frame" x="-14" y="15" width="15" height="0.0"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="c5N-V2-vcO">
-                            <rect key="frame" x="0.0" y="0.0" width="1229" height="23"/>
+                            <rect key="frame" x="0.0" y="0.0" width="1314" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wRx-jk-y2A">
-                        <rect key="frame" x="18" y="542" width="58" height="23"/>
+                        <rect key="frame" x="6" y="536" width="58" height="21"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="始发地：" id="Wbg-qB-S3C">
                             <font key="font" size="13" name=".PingFangSC-Regular"/>
@@ -266,7 +271,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cUc-6I-E4s">
-                        <rect key="frame" x="322" y="541" width="58" height="22"/>
+                        <rect key="frame" x="310" y="538" width="58" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="目的地：" id="X1Z-84-61r">
                             <font key="font" size="13" name=".PingFangSC-Regular"/>
@@ -275,7 +280,7 @@
                         </textFieldCell>
                     </textField>
                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Eak-7f-xds">
-                        <rect key="frame" x="544" y="542" width="44" height="22"/>
+                        <rect key="frame" x="532" y="539" width="44" height="17"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="时间：" id="PPX-59-1UO">
                             <font key="font" size="13" name=".PingFangSC-Regular"/>
@@ -284,9 +289,9 @@
                         </textFieldCell>
                     </textField>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KsM-fL-Bxm">
-                        <rect key="frame" x="70" y="542" width="110" height="22"/>
+                        <rect key="frame" x="58" y="534" width="110" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" identifier="formAddress" drawsBackground="YES" id="HgC-JJ-w42">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" identifier="formAddress" placeholderString="广州" drawsBackground="YES" id="HgC-JJ-w42">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -296,9 +301,9 @@
                         </connections>
                     </textField>
                     <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PEg-aw-3EG">
-                        <rect key="frame" x="377" y="542" width="110" height="22"/>
+                        <rect key="frame" x="365" y="534" width="110" height="22"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" identifier="toAddress" drawsBackground="YES" id="odK-9x-rp7">
+                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" identifier="toAddress" placeholderString="武汉" drawsBackground="YES" id="odK-9x-rp7">
                             <font key="font" metaFont="system"/>
                             <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -308,7 +313,7 @@
                         </connections>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TzV-uo-Twv">
-                        <rect key="frame" x="219" y="540" width="60" height="27"/>
+                        <rect key="frame" x="216" y="532" width="51" height="29"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="bevel" title="交换" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NMS-9f-qMm">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -319,7 +324,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1hB-H5-I9c">
-                        <rect key="frame" x="585" y="540" width="110" height="27"/>
+                        <rect key="frame" x="573" y="532" width="110" height="29"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="bevel" title="2017/02/27" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ocI-O2-wct">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -330,7 +335,7 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecA-DJ-dHo">
-                        <rect key="frame" x="761" y="542" width="60" height="27"/>
+                        <rect key="frame" x="893" y="533" width="51" height="29"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                         <buttonCell key="cell" type="bevel" title="查询" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SQm-mx-a15">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -340,12 +345,39 @@
                             <action selector="query:" target="-2" id="lbU-gw-ksE"/>
                         </connections>
                     </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g0m-pe-3Sh">
+                        <rect key="frame" x="768" y="539" width="57" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="radio" title="成人" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="Vwf-Y8-cAp">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="adultClick:" target="-2" id="SLE-D7-s2J"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K7A-hh-Dxg">
+                        <rect key="frame" x="830" y="539" width="57" height="18"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="radio" title="学生" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="q2p-Cj-1nA">
+                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="studentCheck:" target="-2" id="mMB-Aq-Tia"/>
+                        </connections>
+                    </button>
                 </subviews>
+                <constraints>
+                    <constraint firstItem="TNE-gf-A2O" firstAttribute="leading" secondItem="se5-gp-TjO" secondAttribute="leading" constant="8" id="WvV-5Q-uI9"/>
+                    <constraint firstAttribute="trailing" secondItem="TNE-gf-A2O" secondAttribute="trailing" constant="8" id="fCU-cc-Zx7"/>
+                    <constraint firstAttribute="bottom" secondItem="TNE-gf-A2O" secondAttribute="bottom" constant="8" id="jIX-lp-Wp8"/>
+                </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="-2" id="0bl-1N-AYu"/>
             </connections>
-            <point key="canvasLocation" x="-2213" y="-147"/>
+            <point key="canvasLocation" x="-2172" y="-157"/>
         </window>
     </objects>
 </document>

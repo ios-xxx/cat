@@ -18,7 +18,7 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
     
-    _mainWindow = [[CSYMainViewController alloc]initWithWindowNibName:@"CSYMainViewController"];
+    _mainWindow = [[CSYQueryViewController alloc]initWithWindowNibName:@"CSYQueryViewController"];
     
     
     /** 居中显示 */

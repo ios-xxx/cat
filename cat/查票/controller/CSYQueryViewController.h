@@ -1,5 +1,5 @@
 //
-//  CSYMainViewController.h
+//  CSYQueryViewController.h
 //  cat
 //
 //  Created by hongchen on 2018/2/9.
@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 
 
-@interface CSYMainViewController : NSWindowController
+@interface CSYQueryViewController : NSWindowController
 {
     
     NSMutableArray               *partInfos;

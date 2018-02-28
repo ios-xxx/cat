@@ -1,12 +1,12 @@
 //
-//  CSYMainViewController.m
+//  CSYQueryViewController.m
 //  cat
 //
 //  Created by hongchen on 2018/2/9.
 //  Copyright © 2018年 hongchen. All rights reserved.
 //
 
-#import "CSYMainViewController.h"
+#import "CSYQueryViewController.h"
 #import "NSTextFieldCellCenter.h"
 #import "CSYPopViewController.h"
 #import "CSYQueryTableView.h"
@@ -14,7 +14,7 @@
 #import "CSYDatePopViewController.h"
 
 
-@interface CSYMainViewController ()<NSTableViewDelegate,NSTableViewDataSource,NSTextFieldDelegate>
+@interface CSYQueryViewController ()<NSTableViewDelegate,NSTableViewDataSource,NSTextFieldDelegate>
 {
     /** 车站 pop */
     NSPopover * pop;
@@ -22,7 +22,6 @@
     NSPopover * datePop;
 }
 
-@property (weak) IBOutlet NSImageView *testImage;
 
 /** 出发地 */
 @property (strong) IBOutlet NSTextField *formAddress;
@@ -74,7 +73,7 @@
 
 @end
 
-@implementation CSYMainViewController
+@implementation CSYQueryViewController
 
 
 - (void)windowDidLoad {
@@ -100,78 +99,75 @@
 //  初始化日期方法
     [self initWithDate];
     
-    NSURL * imgUrl = [NSURL URLWithString:@"https://kyfw.12306.cn/passport/captcha/captcha-image?login_site=E&module=login&rand=sjrand"];
     
-    [_testImage sd_setImageWithURL:imgUrl];
-    
-//    添加监视钩端螺旋体病
-    NSTrackingArea * trackingArea = [[NSTrackingArea alloc]initWithRect:_bgView.bounds options:NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved |
-                                     NSTrackingCursorUpdate |
-                                     NSTrackingActiveWhenFirstResponder |
-                                     NSTrackingActiveInKeyWindow |
-                                     NSTrackingActiveInActiveApp |
-                                     NSTrackingActiveAlways |
-                                     NSTrackingAssumeInside |
-                                     NSTrackingInVisibleRect |
-                                     NSTrackingEnabledDuringMouseDrag
-                                                                  owner:self
-                                                               userInfo:nil];
-    
-    
-    [_testImage addTrackingArea:trackingArea ];
+////    添加监视钩端螺旋体病
+//    NSTrackingArea * trackingArea = [[NSTrackingArea alloc]initWithRect:_bgView.bounds options:NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved |
+//                                     NSTrackingCursorUpdate |
+//                                     NSTrackingActiveWhenFirstResponder |
+//                                     NSTrackingActiveInKeyWindow |
+//                                     NSTrackingActiveInActiveApp |
+//                                     NSTrackingActiveAlways |
+//                                     NSTrackingAssumeInside |
+//                                     NSTrackingInVisibleRect |
+//                                     NSTrackingEnabledDuringMouseDrag
+//                                                                  owner:self
+//                                                               userInfo:nil];
+//
+//
+//    [_testImage addTrackingArea:trackingArea ];
 
 }
 
-// 鼠标进入监视区
-- (void)mouseEntered:(NSEvent *)theEvent{
-    
-    
-    DLog(@" log...");
-}
-// 鼠标在监视区内移动
-- (void)mouseMoved:(NSEvent *)theEvent{
-    
-    
-//    DLog(@" log...2");
-}
-// 鼠标推出监视区
-- (void)mouseExited:(NSEvent *)theEvent{
-    
-    
-    DLog(@" log...3");
-}
-
-// 按下鼠标左键
-- (void)mouseDown:(NSEvent *)event {
-    
-    
-    DLog(@" log...4");
-}
-// 松开鼠标左键
-- (void)mouseUp:(NSEvent *)theEvent{
-    
-    
-    DLog(@" log...5");
-}
-// 按下鼠标右键
-- (void)rightMouseDown:(NSEvent *)theEvent{
-    
-    
-    DLog(@" log...6");
-}
-// 松开鼠标右键
-- (void)rightMouseUp:(NSEvent *)theEvent{
-    
-    
-    DLog(@" log...7");
-}
+//// 鼠标进入监视区
+//- (void)mouseEntered:(NSEvent *)theEvent{
+//
+//
+//    DLog(@" log...");
+//}
+//// 鼠标在监视区内移动
+//- (void)mouseMoved:(NSEvent *)theEvent{
+//
+//
+////    DLog(@" log...2");
+//}
+//// 鼠标推出监视区
+//- (void)mouseExited:(NSEvent *)theEvent{
+//
+//
+//    DLog(@" log...3");
+//}
+//
+//// 按下鼠标左键
+//- (void)mouseDown:(NSEvent *)event {
+//
+//
+//    DLog(@" log...4");
+//}
+//// 松开鼠标左键
+//- (void)mouseUp:(NSEvent *)theEvent{
+//
+//
+//    DLog(@" log...5");
+//}
+//// 按下鼠标右键
+//- (void)rightMouseDown:(NSEvent *)theEvent{
+//
+//
+//    DLog(@" log...6");
+//}
+//// 松开鼠标右键
+//- (void)rightMouseUp:(NSEvent *)theEvent{
+//
+//
+//    DLog(@" log...7");
+//}
 
 
 
 #pragma mark - query method
 - (IBAction)query:(NSButton *)sender {
     
-
+    
     AFHTTPSessionManager * manager = [AFHTTPSessionManager manager];
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
@@ -417,6 +413,7 @@
 /** 交换车站  */
 - (IBAction)exchange:(id)sender {
     
+    
     NSString * fromAddress = _formAddress.stringValue;
     _formAddress.stringValue = _toAddress.stringValue;
     _toAddress.stringValue   = fromAddress;
@@ -493,7 +490,7 @@
 -(void)selectCityComplete {
     
     __weak NSPopover * objPop = pop;
-    __weak CSYMainViewController * main = self;
+    __weak CSYQueryViewController * main = self;
     
     _popViewController.closeBlock = ^(NSArray *data,NSString * popTag) {
         
@@ -542,7 +539,7 @@
 /** 响应选中日期回调 */
 -(void)selectDateComplete {
     
-    __weak    CSYMainViewController * main = self;
+    __weak    CSYQueryViewController * main = self;
     _datePopViewController.selectDateBlcok = ^(NSString *dateStr) {
       
         main.currentDate.title = dateStr;

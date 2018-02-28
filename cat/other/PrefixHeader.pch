@@ -30,6 +30,8 @@
 
 #import "AFNetworking.h"
 #import "Masonry.h"
+#import "UIImageView+WebCache.h"
+
 
 
 

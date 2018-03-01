@@ -22,22 +22,24 @@
         <customObject id="-3" userLabel="Application" customClass="NSObject"/>
         <window title="票猫" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" oneShot="NO" releasedWhenClosed="NO" animationBehavior="default" id="F0z-JX-Cv5">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-            <rect key="contentRect" x="196" y="240" width="1645" height="604"/>
+            <rect key="contentRect" x="196" y="240" width="1320" height="604"/>
             <rect key="screenRect" x="0.0" y="0.0" width="1920" height="1057"/>
-            <value key="minSize" type="size" width="1645" height="604"/>
-            <value key="maxSize" type="size" width="1645" height="604"/>
+            <value key="minSize" type="size" width="1320" height="604"/>
+            <value key="maxSize" type="size" width="1320" height="604"/>
+            <value key="minFullScreenContentSize" type="size" width="1350" height="604"/>
+            <value key="maxFullScreenContentSize" type="size" width="1350" height="604"/>
             <view key="contentView" wantsLayer="YES" id="se5-gp-TjO">
-                <rect key="frame" x="0.0" y="0.0" width="1645" height="604"/>
+                <rect key="frame" x="0.0" y="0.0" width="1320" height="604"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
                 <subviews>
                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TNE-gf-A2O">
-                        <rect key="frame" x="8" y="8" width="1629" height="530"/>
+                        <rect key="frame" x="8" y="8" width="1304" height="530"/>
                         <clipView key="contentView" id="KZP-vj-KIp">
-                            <rect key="frame" x="1" y="0.0" width="1627" height="529"/>
+                            <rect key="frame" x="1" y="0.0" width="1302" height="529"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" headerView="c5N-V2-vcO" id="EHT-Yb-wJP" customClass="CSYQueryTableView">
-                                    <rect key="frame" x="0.0" y="0.0" width="1627" height="506"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1302" height="506"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <size key="intercellSpacing" width="3" height="2"/>
                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -257,7 +259,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <tableHeaderView key="headerView" id="c5N-V2-vcO">
-                            <rect key="frame" x="0.0" y="0.0" width="1627" height="23"/>
+                            <rect key="frame" x="0.0" y="0.0" width="1302" height="23"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </tableHeaderView>
                     </scrollView>
@@ -313,9 +315,9 @@
                         </connections>
                     </textField>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TzV-uo-Twv">
-                        <rect key="frame" x="216" y="556" width="51" height="29"/>
+                        <rect key="frame" x="216" y="555" width="51" height="29"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="bevel" title="交换" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NMS-9f-qMm">
+                        <buttonCell key="cell" type="squareTextured" title="交换" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="NMS-9f-qMm">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -335,9 +337,9 @@
                         </connections>
                     </button>
                     <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ecA-DJ-dHo">
-                        <rect key="frame" x="893" y="557" width="51" height="29"/>
+                        <rect key="frame" x="895" y="558" width="47" height="27"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <buttonCell key="cell" type="bevel" title="查询" bezelStyle="regularSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SQm-mx-a15">
+                        <buttonCell key="cell" type="squareTextured" title="查询" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SQm-mx-a15">
                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                             <font key="font" metaFont="system"/>
                         </buttonCell>
@@ -365,6 +367,17 @@
                         </buttonCell>
                         <connections>
                             <action selector="studentCheck:" target="-2" id="mMB-Aq-Tia"/>
+                        </connections>
+                    </button>
+                    <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qhS-3y-hEB">
+                        <rect key="frame" x="958" y="557" width="53" height="29"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                        <buttonCell key="cell" type="squareTextured" title="确定" bezelStyle="texturedSquare" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="OSl-s9-ssX">
+                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                            <font key="font" metaFont="system"/>
+                        </buttonCell>
+                        <connections>
+                            <action selector="confirm:" target="-2" id="e8S-5D-quk"/>
                         </connections>
                     </button>
                 </subviews>

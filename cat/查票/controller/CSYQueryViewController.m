@@ -466,6 +466,15 @@
     
 }
 
+/** 响应确定按钮被单击 */
+- (IBAction)confirm:(id)sender {
+    
+    
+    DLog(@" log..");
+    [self.window close];
+}
+
+
 
 
 

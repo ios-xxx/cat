@@ -62,6 +62,13 @@
 		B6A0BE5A2046C8EF009A8084 /* SDWebImageWebPCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BE3B2046C8EF009A8084 /* SDWebImageWebPCoder.m */; };
 		B6B8450A2040712F009E57C8 /* CSYPopTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B845092040712F009E57C8 /* CSYPopTableView.m */; };
 		B6B8450D204075C3009E57C8 /* NSTextFieldCellCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B8450C204075C3009E57C8 /* NSTextFieldCellCenter.m */; };
+		B6BB4E2320478B8100819EF9 /* CSYMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4E2120478B8100819EF9 /* CSYMainWindowController.m */; };
+		B6BB4E2420478B8100819EF9 /* CSYMainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6BB4E2220478B8100819EF9 /* CSYMainWindowController.xib */; };
+		B6BB4E2B20479D2E00819EF9 /* CSYAddUserTable.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4E2A20479D2E00819EF9 /* CSYAddUserTable.m */; };
+		B6BB4E3120479DD700819EF9 /* CSYQueryLogTable.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4E3020479DD700819EF9 /* CSYQueryLogTable.m */; };
+		B6BB4E3420479E5000819EF9 /* CSYContactsTable.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4E3320479E5000819EF9 /* CSYContactsTable.m */; };
+		B6BB4E3720479EE300819EF9 /* CSYTaskTable.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4E3620479EE300819EF9 /* CSYTaskTable.m */; };
+		B6BB4E3B2047FCE400819EF9 /* CSYLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4E3A2047FCE400819EF9 /* CSYLoginView.m */; };
 		B6DD039E202D5FDD00E48F30 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B6DD039D202D5FDD00E48F30 /* AppDelegate.m */; };
 		B6DD03A0202D5FDD00E48F30 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B6DD039F202D5FDD00E48F30 /* Assets.xcassets */; };
 		B6DD03A3202D5FDD00E48F30 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6DD03A1202D5FDD00E48F30 /* MainMenu.xib */; };
@@ -205,6 +212,19 @@
 		B6B845092040712F009E57C8 /* CSYPopTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYPopTableView.m; sourceTree = "<group>"; };
 		B6B8450B204075C3009E57C8 /* NSTextFieldCellCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSTextFieldCellCenter.h; sourceTree = "<group>"; };
 		B6B8450C204075C3009E57C8 /* NSTextFieldCellCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSTextFieldCellCenter.m; sourceTree = "<group>"; };
+		B6BB4E2020478B8100819EF9 /* CSYMainWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CSYMainWindowController.h; path = "cat/主界面/controller/CSYMainWindowController.h"; sourceTree = SOURCE_ROOT; };
+		B6BB4E2120478B8100819EF9 /* CSYMainWindowController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CSYMainWindowController.m; path = "cat/主界面/controller/CSYMainWindowController.m"; sourceTree = SOURCE_ROOT; };
+		B6BB4E2220478B8100819EF9 /* CSYMainWindowController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CSYMainWindowController.xib; path = "cat/主界面/controller/CSYMainWindowController.xib"; sourceTree = SOURCE_ROOT; };
+		B6BB4E2920479D2E00819EF9 /* CSYAddUserTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYAddUserTable.h; sourceTree = "<group>"; };
+		B6BB4E2A20479D2E00819EF9 /* CSYAddUserTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYAddUserTable.m; sourceTree = "<group>"; };
+		B6BB4E2F20479DD700819EF9 /* CSYQueryLogTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYQueryLogTable.h; sourceTree = "<group>"; };
+		B6BB4E3020479DD700819EF9 /* CSYQueryLogTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYQueryLogTable.m; sourceTree = "<group>"; };
+		B6BB4E3220479E5000819EF9 /* CSYContactsTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYContactsTable.h; sourceTree = "<group>"; };
+		B6BB4E3320479E5000819EF9 /* CSYContactsTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYContactsTable.m; sourceTree = "<group>"; };
+		B6BB4E3520479EE300819EF9 /* CSYTaskTable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYTaskTable.h; sourceTree = "<group>"; };
+		B6BB4E3620479EE300819EF9 /* CSYTaskTable.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYTaskTable.m; sourceTree = "<group>"; };
+		B6BB4E392047FCE400819EF9 /* CSYLoginView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYLoginView.h; sourceTree = "<group>"; };
+		B6BB4E3A2047FCE400819EF9 /* CSYLoginView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYLoginView.m; sourceTree = "<group>"; };
 		B6DD0399202D5FDD00E48F30 /* cat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6DD039C202D5FDD00E48F30 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B6DD039D202D5FDD00E48F30 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -370,6 +390,9 @@
 		B63285A72046FE4B00BA1114 /* 主界面 */ = {
 			isa = PBXGroup;
 			children = (
+				B6BB4E2720479CC900819EF9 /* controller */,
+				B6BB4E2620479CC600819EF9 /* view */,
+				B6BB4E2520479CC300819EF9 /* model */,
 			);
 			path = "主界面";
 			sourceTree = "<group>";
@@ -481,6 +504,80 @@
 				B6A0BE122046C8EF009A8084 /* FLAnimatedImageView+WebCache.h */,
 			);
 			path = FLAnimatedImage;
+			sourceTree = "<group>";
+		};
+		B6BB4E2520479CC300819EF9 /* model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		B6BB4E2620479CC600819EF9 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				B6BB4E382047FCB900819EF9 /* 登陆视图 */,
+				B6BB4E2820479CFA00819EF9 /* 用户表格 */,
+				B6BB4E2E20479D5800819EF9 /* 联系人表格 */,
+				B6BB4E2D20479D5500819EF9 /* 任务表格 */,
+				B6BB4E2C20479D5200819EF9 /* 日志表格 */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		B6BB4E2720479CC900819EF9 /* controller */ = {
+			isa = PBXGroup;
+			children = (
+				B6BB4E2020478B8100819EF9 /* CSYMainWindowController.h */,
+				B6BB4E2120478B8100819EF9 /* CSYMainWindowController.m */,
+				B6BB4E2220478B8100819EF9 /* CSYMainWindowController.xib */,
+			);
+			path = controller;
+			sourceTree = "<group>";
+		};
+		B6BB4E2820479CFA00819EF9 /* 用户表格 */ = {
+			isa = PBXGroup;
+			children = (
+				B6BB4E2920479D2E00819EF9 /* CSYAddUserTable.h */,
+				B6BB4E2A20479D2E00819EF9 /* CSYAddUserTable.m */,
+			);
+			path = "用户表格";
+			sourceTree = "<group>";
+		};
+		B6BB4E2C20479D5200819EF9 /* 日志表格 */ = {
+			isa = PBXGroup;
+			children = (
+				B6BB4E2F20479DD700819EF9 /* CSYQueryLogTable.h */,
+				B6BB4E3020479DD700819EF9 /* CSYQueryLogTable.m */,
+			);
+			path = "日志表格";
+			sourceTree = "<group>";
+		};
+		B6BB4E2D20479D5500819EF9 /* 任务表格 */ = {
+			isa = PBXGroup;
+			children = (
+				B6BB4E3520479EE300819EF9 /* CSYTaskTable.h */,
+				B6BB4E3620479EE300819EF9 /* CSYTaskTable.m */,
+			);
+			path = "任务表格";
+			sourceTree = "<group>";
+		};
+		B6BB4E2E20479D5800819EF9 /* 联系人表格 */ = {
+			isa = PBXGroup;
+			children = (
+				B6BB4E3220479E5000819EF9 /* CSYContactsTable.h */,
+				B6BB4E3320479E5000819EF9 /* CSYContactsTable.m */,
+			);
+			path = "联系人表格";
+			sourceTree = "<group>";
+		};
+		B6BB4E382047FCB900819EF9 /* 登陆视图 */ = {
+			isa = PBXGroup;
+			children = (
+				B6BB4E392047FCE400819EF9 /* CSYLoginView.h */,
+				B6BB4E3A2047FCE400819EF9 /* CSYLoginView.m */,
+			);
+			path = "登陆视图";
 			sourceTree = "<group>";
 		};
 		B6DD0390202D5FDD00E48F30 = {
@@ -651,6 +748,7 @@
 				B641A81F20396A79004A51D6 /* CSYPopViewController.xib in Resources */,
 				B661CD4A20372835009F49B7 /* Info.plist in Resources */,
 				B6DD03CD202D636D00E48F30 /* CSYQueryViewController.xib in Resources */,
+				B6BB4E2420478B8100819EF9 /* CSYMainWindowController.xib in Resources */,
 				B6DD03A3202D5FDD00E48F30 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -679,6 +777,8 @@
 				B6DD03A6202D5FDD00E48F30 /* main.m in Sources */,
 				B6A0BE4B2046C8EF009A8084 /* SDWebImageCoder.m in Sources */,
 				B6A0BE3F2046C8EF009A8084 /* SDWebImageManager.m in Sources */,
+				B6BB4E3720479EE300819EF9 /* CSYTaskTable.m in Sources */,
+				B6BB4E3420479E5000819EF9 /* CSYContactsTable.m in Sources */,
 				B6A0BE3D2046C8EF009A8084 /* UIImage+WebP.m in Sources */,
 				B6A0BE4A2046C8EF009A8084 /* SDWebImagePrefetcher.m in Sources */,
 				B6A0BE552046C8EF009A8084 /* SDImageCacheConfig.m in Sources */,
@@ -694,10 +794,12 @@
 				B6A0BE532046C8EF009A8084 /* NSImage+WebCache.m in Sources */,
 				B641A81E20396A79004A51D6 /* CSYPopViewController.m in Sources */,
 				B661CD4620372835009F49B7 /* View+MASAdditions.m in Sources */,
+				B6BB4E3B2047FCE400819EF9 /* CSYLoginView.m in Sources */,
 				B60B5099204141FE00373C7C /* CSYQueryTableView.m in Sources */,
 				B6A0BE512046C8EF009A8084 /* NSData+ImageContentType.m in Sources */,
 				B60B50A12041734300373C7C /* CSYRequest.m in Sources */,
 				B6A0BE452046C8EF009A8084 /* SDWebImageDownloader.m in Sources */,
+				B6BB4E3120479DD700819EF9 /* CSYQueryLogTable.m in Sources */,
 				B661CD4020372835009F49B7 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				B661CD4220372835009F49B7 /* MASCompositeConstraint.m in Sources */,
 				B6A0BDFC20458356009A8084 /* CSYDatePopViewController.m in Sources */,
@@ -713,6 +815,7 @@
 				B6A0BE582046C8EF009A8084 /* SDWebImageImageIOCoder.m in Sources */,
 				B661CD4820372835009F49B7 /* MASViewConstraint.m in Sources */,
 				B6247453203487D500D2E1A1 /* AFURLSessionManager.m in Sources */,
+				B6BB4E2B20479D2E00819EF9 /* CSYAddUserTable.m in Sources */,
 				B6A0BE562046C8EF009A8084 /* UIView+WebCacheOperation.m in Sources */,
 				B6A0BE3E2046C8EF009A8084 /* MKAnnotationView+WebCache.m in Sources */,
 				B6B8450A2040712F009E57C8 /* CSYPopTableView.m in Sources */,
@@ -728,6 +831,7 @@
 				B6247455203487D500D2E1A1 /* AFNetworkReachabilityManager.m in Sources */,
 				B661CD4720372835009F49B7 /* MASConstraint.m in Sources */,
 				B6A0BE4E2046C8EF009A8084 /* SDImageCache.m in Sources */,
+				B6BB4E2320478B8100819EF9 /* CSYMainWindowController.m in Sources */,
 				B6A0BE462046C8EF009A8084 /* UIImage+GIF.m in Sources */,
 				B6DD03CC202D636D00E48F30 /* CSYQueryViewController.m in Sources */,
 				B6A0BE542046C8EF009A8084 /* SDWebImageGIFCoder.m in Sources */,

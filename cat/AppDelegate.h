@@ -7,11 +7,11 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "CSYQueryViewController.h"
+#import "CSYMainWindowController.h"
 
 @interface AppDelegate : NSObject <NSApplicationDelegate>
 
 /** 主窗口 */
-@property (strong,nonatomic) CSYQueryViewController * mainWindow;
+@property (strong,nonatomic) CSYMainWindowController * mainWindow;
 @end
 

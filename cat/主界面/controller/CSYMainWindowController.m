@@ -52,7 +52,7 @@
     [loginView makeConstraints:^(MASConstraintMaker *make) {
         
         make.center.equalTo(_bgView);
-        make.size.equalTo(CGSizeMake(293, 230));
+        make.size.equalTo(CGSizeMake(293, 235));
     }];
     
     

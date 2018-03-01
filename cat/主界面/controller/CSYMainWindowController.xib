@@ -8,6 +8,7 @@
         <customObject id="-2" userLabel="File's Owner" customClass="CSYMainWindowController">
             <connections>
                 <outlet property="bgView" destination="se5-gp-TjO" id="LBg-hj-vub"/>
+                <outlet property="superWindow" destination="F0z-JX-Cv5" id="Nzj-Ur-OvQ"/>
                 <outlet property="window" destination="F0z-JX-Cv5" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -195,7 +196,7 @@
                             </subviews>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="IND-ga-JW0">
-                            <rect key="frame" x="1" y="213" width="341" height="15"/>
+                            <rect key="frame" x="1" y="8" width="0.0" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="uoe-ft-vwE">
@@ -292,7 +293,7 @@
                             </subviews>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="SgI-Jg-xXm">
-                            <rect key="frame" x="1" y="115.82041054964066" width="230.98297500610352" height="15"/>
+                            <rect key="frame" x="1" y="8" width="0.0" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="Etc-pm-zjr">
@@ -554,7 +555,7 @@
                             </subviews>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="GuM-Ng-YnJ">
-                            <rect key="frame" x="1" y="252" width="959" height="15"/>
+                            <rect key="frame" x="1" y="8" width="0.0" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="G2z-c4-MFw">
@@ -710,7 +711,7 @@
                             </subviews>
                         </clipView>
                         <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="afq-w1-hnR">
-                            <rect key="frame" x="1" y="97.613184154033661" width="190.80150985717773" height="15"/>
+                            <rect key="frame" x="1" y="8" width="0.0" height="15"/>
                             <autoresizingMask key="autoresizingMask"/>
                         </scroller>
                         <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="1fN-3h-ywe">

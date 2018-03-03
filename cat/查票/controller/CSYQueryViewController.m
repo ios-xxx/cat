@@ -99,68 +99,10 @@
 //  初始化日期方法
     [self initWithDate];
     
-    
-////    添加监视钩端螺旋体病
-//    NSTrackingArea * trackingArea = [[NSTrackingArea alloc]initWithRect:_bgView.bounds options:NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved |
-//                                     NSTrackingCursorUpdate |
-//                                     NSTrackingActiveWhenFirstResponder |
-//                                     NSTrackingActiveInKeyWindow |
-//                                     NSTrackingActiveInActiveApp |
-//                                     NSTrackingActiveAlways |
-//                                     NSTrackingAssumeInside |
-//                                     NSTrackingInVisibleRect |
-//                                     NSTrackingEnabledDuringMouseDrag
-//                                                                  owner:self
-//                                                               userInfo:nil];
-//
-//
-//    [_testImage addTrackingArea:trackingArea ];
-
 }
 
-//// 鼠标进入监视区
-//- (void)mouseEntered:(NSEvent *)theEvent{
-//
-//
-//    DLog(@" log...");
-//}
-//// 鼠标在监视区内移动
-//- (void)mouseMoved:(NSEvent *)theEvent{
-//
-//
-////    DLog(@" log...2");
-//}
-//// 鼠标推出监视区
-//- (void)mouseExited:(NSEvent *)theEvent{
-//
-//
-//    DLog(@" log...3");
-//}
-//
-//// 按下鼠标左键
-//- (void)mouseDown:(NSEvent *)event {
-//
-//
-//    DLog(@" log...4");
-//}
-//// 松开鼠标左键
-//- (void)mouseUp:(NSEvent *)theEvent{
-//
-//
-//    DLog(@" log...5");
-//}
-//// 按下鼠标右键
-//- (void)rightMouseDown:(NSEvent *)theEvent{
-//
-//
-//    DLog(@" log...6");
-//}
-//// 松开鼠标右键
-//- (void)rightMouseUp:(NSEvent *)theEvent{
-//
-//
-//    DLog(@" log...7");
-//}
+
+
 
 
 

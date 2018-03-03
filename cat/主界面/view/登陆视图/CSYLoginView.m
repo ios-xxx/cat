@@ -16,6 +16,9 @@
     BOOL isEntered;
 }
 
+/** 保存用户选中图片的坐标 */
+@property (strong,nonatomic) NSMutableString * saveSelectPointStrs;
+
 @end
 
 @implementation CSYLoginView
@@ -42,7 +45,21 @@
     
     codeImage = [NSImageView new];
     
-    [codeImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://kyfw.12306.cn/passport/captcha/captcha-image?login_site=E&module=login&rand=sjrand&0.%d",arc4random()%10000+10000000]]];
+    NSURL * imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://kyfw.12306.cn/passport/captcha/captcha-image?login_site=E&module=login&rand=sjrand&0.%d",arc4random()%10000+10000000]];
+    
+    SDWebImageManager * manager = [SDWebImageManager sharedManager];
+    [manager loadImageWithURL:imageUrl options:SDWebImageHandleCookies progress:nil completed:^(NSImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+       
+        if (finished) {
+            
+            [codeImage setImage:image];
+        }
+        
+        NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+        
+        DLog(@"%@",cookies);
+    }];
+    
     [self addSubview:codeImage];
     
     [codeImage makeConstraints:^(MASConstraintMaker *make) {
@@ -97,12 +114,77 @@
 
 -(void)codeBtnTap:(NSButton *)sender {
     
+  
     if (sender.tag == 0) {
         
-        [codeImage sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://kyfw.12306.cn/passport/captcha/captcha-image?login_site=E&module=login&rand=sjrand&0.%d",arc4random()%10000+10000000]]];
+       
+        NSURL * imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://kyfw.12306.cn/passport/captcha/captcha-image?login_site=E&module=login&rand=sjrand&0.%d",arc4random()%10000+10000000]];
+        
+        SDWebImageManager * manager = [SDWebImageManager sharedManager];
+        [manager loadImageWithURL:imageUrl options:SDWebImageHandleCookies progress:nil completed:^(NSImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+            
+            if (finished) {
+                
+                [codeImage setImage:image];
+            }
+            
+            NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+            
+            DLog(@"%@",cookies);
+        }];
+        
+        /** 删除验证码上面的 View */
+        [self deleteSubView];
+        
     }else {
         
-        [self removeFromSuperview];
+        
+        if (_saveSelectPointStrs.length < 1) return;
+        [_saveSelectPointStrs deleteCharactersInRange:NSMakeRange(0, 1)];
+        DLog(@"%@",_saveSelectPointStrs);
+        NSDictionary * paramterDict = @{
+                                        @"answer":_saveSelectPointStrs,
+                                        @"login_site":@"E",
+                                        @"rand":@"sjrand",
+                                        };
+
+
+        DLog(@"%@",paramterDict);
+        
+        NSArray * cookies = [NSKeyedUnarchiver unarchiveObjectWithData: [[NSUserDefaults standardUserDefaults] objectForKey:@"cookie"]];
+        NSHTTPCookieStorage * cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+        for (NSHTTPCookie * cookie in cookies){
+            [cookieStorage setCookie: cookie];
+        }
+        
+        
+        
+        [CSYRequest requestPostUrl:url(@"passport/captcha/captcha-check") paramters:paramterDict cookie:^(AFHTTPSessionManager *manger) {
+
+//            [manger.requestSerializer setValue:@"_passport_session=90d4e94a714b4e6f913ca7d570f80a1e6865; _passport_ct=6b2f648333bd4ad7a2438fdb0f91a686t8415; BIGipServerpassport=837288202.50215.0000" forHTTPHeaderField:@"Cookie"];
+            
+        } success:^(NSURLSessionDataTask * _Nonnull task,NSData *data) {
+
+            NSDictionary * resaultDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            
+            if ([CSYIsNull isNull:resaultDict] || ![resaultDict[@"result_code"] isEqualToString:@"4"]) {
+                // 删除验证码上的 View,并重新获取验证码
+                [self deleteSubView];
+                return ;
+            }
+            
+            /** 调用登陆方法 */
+            [self loginUser];
+//
+//            NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+//
+//            DLog(@"str = %@",str);
+        } error:^(NSError *err) {
+
+            DLog(@"err=%@",err);
+        }];
+        DLog(@"--- %@",_saveSelectPointStrs);
+//                [self removeFromSuperview];
     }
 }
 
@@ -128,19 +210,17 @@
 // 按下鼠标左键
 - (void)mouseDown:(NSEvent *)event {
     
-    NSWindow * win = [NSApplication sharedApplication].keyWindow;
-    
-    
     NSPoint point = [event locationInWindow];
     
     float x = point.x - CGRectGetMinX(self.frame);
     float y =CGRectGetMaxY(self.frame) -  point.y;
 
 //    DLog(@"%@ --- %@",NSStringFromPoint(CGPointMake(x, y)),NSStringFromPoint(point));
-   
     
 //    创建一个实心圆
-    [self loadCircualPiont:CGPointMake(x, y)];
+    [self loadCircualPiont:NSMakePoint(x, y)];
+    [self.saveSelectPointStrs appendString:[NSString  stringWithFormat:@",%.f,%.f",x,y]];
+//    self.saveSelectPointStrs = [NSMutableString  stringWithFormat:@",%f,%f",x,y]];
     
 }
 // 松开鼠标左键
@@ -165,8 +245,6 @@
 /** 响应鼠标左键单击（创建一个实心圆） */
 -(void)loadCircualPiont:(NSPoint )point {
     
-    
-    DLog(@"point = %@",NSStringFromPoint(point));
     NSView * circual = [NSView new];
     circual.wantsLayer = YES;
     [circual.layer setBackgroundColor:[NSColor redColor].CGColor];
@@ -181,21 +259,66 @@
         make.size.equalTo(CGSizeMake(15, 15));
     }];
     
-    
-   
 }
 
-- (NSViewController *)getCurrentVCFrom:(NSViewController *)rootVC
-{
-    NSViewController *currentVC;
+/** 删除验证图片上面的 view */
+-(void)deleteSubView {
     
-    if ([rootVC presentingViewController]) {
-        // 视图是被presented出来的
+    while (codeImage.subviews.count > 1) {
         
-        currentVC = [rootVC presentingViewController];
+        for (int i = 0; i < codeImage.subviews.count; i++) {
+            
+            if ([NSStringFromClass([codeImage.subviews[i] class]) isEqualToString:@"NSView"] )[codeImage.subviews[i] removeFromSuperview];
+            
+        }
     }
     
-    return currentVC;
+    [_saveSelectPointStrs deleteCharactersInRange:NSMakeRange(0, _saveSelectPointStrs.length -1)];
+  
+}
+
+
+/** 登陆方法 */
+-(void)loginUser {
+    
+    NSDictionary * paramterDict = @{
+                                    @"username":@"hcp_cwj",
+                                    @"password":@"aa123123",
+                                    @"appid":@"otn",
+                                    };
+    
+    [CSYRequest requestPostUrl:url(@"passport/web/login") paramters:paramterDict cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
+        
+        NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+        
+        DLog(@"%@",str);
+        
+        [CSYRequest requestPostUrl:url(@"otn/passengers/init") paramters:@{@"_json_att":@""} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
+            
+            NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+            
+            DLog(@"data = \n%@",str);
+        } error:^(NSError *err) {
+            
+            
+            DLog(@"%@",err);
+        }];
+        
+    } error:^(NSError *err) {
+        
+        
+        DLog(@"登陆出错了....");
+    }];
+}
+
+
+#pragma mark - 初始化全局属性变量
+-(NSMutableString *)saveSelectPointStrs {
+    
+    if (_saveSelectPointStrs != nil)  return _saveSelectPointStrs;
+    return _saveSelectPointStrs = [NSMutableString new];
 }
 
 @end
+
+

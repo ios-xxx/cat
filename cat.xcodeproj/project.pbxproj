@@ -28,6 +28,9 @@
 		B661CD4820372835009F49B7 /* MASViewConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = B661CD3D20372835009F49B7 /* MASViewConstraint.m */; };
 		B661CD4920372835009F49B7 /* MASViewAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = B661CD3E20372835009F49B7 /* MASViewAttribute.m */; };
 		B661CD4A20372835009F49B7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B661CD3F20372835009F49B7 /* Info.plist */; };
+		B680915C2048F31800411A7C /* NSColor+CSYHex.m in Sources */ = {isa = PBXBuildFile; fileRef = B680915B2048F31800411A7C /* NSColor+CSYHex.m */; };
+		B68091602048F3A800411A7C /* CSYIsNull.m in Sources */ = {isa = PBXBuildFile; fileRef = B680915E2048F3A800411A7C /* CSYIsNull.m */; };
+		B68091642048F42400411A7C /* CSYAutoProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = B68091622048F42400411A7C /* CSYAutoProperty.m */; };
 		B6A0BDFC20458356009A8084 /* CSYDatePopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BDFA20458356009A8084 /* CSYDatePopViewController.m */; };
 		B6A0BDFD20458356009A8084 /* CSYDatePopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6A0BDFB20458356009A8084 /* CSYDatePopViewController.xib */; };
 		B6A0BE3D2046C8EF009A8084 /* UIImage+WebP.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BE002046C8EF009A8084 /* UIImage+WebP.m */; };
@@ -144,6 +147,12 @@
 		B661CD3D20372835009F49B7 /* MASViewConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewConstraint.m; sourceTree = "<group>"; };
 		B661CD3E20372835009F49B7 /* MASViewAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASViewAttribute.m; sourceTree = "<group>"; };
 		B661CD3F20372835009F49B7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B680915A2048F31800411A7C /* NSColor+CSYHex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSColor+CSYHex.h"; sourceTree = "<group>"; };
+		B680915B2048F31800411A7C /* NSColor+CSYHex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSColor+CSYHex.m"; sourceTree = "<group>"; };
+		B680915E2048F3A800411A7C /* CSYIsNull.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSYIsNull.m; sourceTree = "<group>"; };
+		B680915F2048F3A800411A7C /* CSYIsNull.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSYIsNull.h; sourceTree = "<group>"; };
+		B68091622048F42400411A7C /* CSYAutoProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CSYAutoProperty.m; sourceTree = "<group>"; };
+		B68091632048F42400411A7C /* CSYAutoProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CSYAutoProperty.h; sourceTree = "<group>"; };
 		B6A0BDF920458356009A8084 /* CSYDatePopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYDatePopViewController.h; sourceTree = "<group>"; };
 		B6A0BDFA20458356009A8084 /* CSYDatePopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYDatePopViewController.m; sourceTree = "<group>"; };
 		B6A0BDFB20458356009A8084 /* CSYDatePopViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSYDatePopViewController.xib; sourceTree = "<group>"; };
@@ -318,6 +327,9 @@
 		B62474412034879400D2E1A1 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				B68091612048F41100411A7C /* AutoCode */,
+				B680915D2048F38600411A7C /* IsNull */,
+				B68091592048F30500411A7C /* HexColor */,
 				B6A0BDFE2046C8EF009A8084 /* SDWebImage */,
 				B60B509E2041731D00373C7C /* Request */,
 				B661CD2520372835009F49B7 /* Masonry */,
@@ -428,6 +440,33 @@
 				B661CD3F20372835009F49B7 /* Info.plist */,
 			);
 			path = Masonry;
+			sourceTree = "<group>";
+		};
+		B68091592048F30500411A7C /* HexColor */ = {
+			isa = PBXGroup;
+			children = (
+				B680915A2048F31800411A7C /* NSColor+CSYHex.h */,
+				B680915B2048F31800411A7C /* NSColor+CSYHex.m */,
+			);
+			path = HexColor;
+			sourceTree = "<group>";
+		};
+		B680915D2048F38600411A7C /* IsNull */ = {
+			isa = PBXGroup;
+			children = (
+				B680915F2048F3A800411A7C /* CSYIsNull.h */,
+				B680915E2048F3A800411A7C /* CSYIsNull.m */,
+			);
+			path = IsNull;
+			sourceTree = "<group>";
+		};
+		B68091612048F41100411A7C /* AutoCode */ = {
+			isa = PBXGroup;
+			children = (
+				B68091632048F42400411A7C /* CSYAutoProperty.h */,
+				B68091622048F42400411A7C /* CSYAutoProperty.m */,
+			);
+			path = AutoCode;
 			sourceTree = "<group>";
 		};
 		B6A0BDFE2046C8EF009A8084 /* SDWebImage */ = {
@@ -783,6 +822,7 @@
 				B6A0BE4A2046C8EF009A8084 /* SDWebImagePrefetcher.m in Sources */,
 				B6A0BE552046C8EF009A8084 /* SDImageCacheConfig.m in Sources */,
 				B6A0BE412046C8EF009A8084 /* SDWebImageFrame.m in Sources */,
+				B680915C2048F31800411A7C /* NSColor+CSYHex.m in Sources */,
 				B6A0BE522046C8EF009A8084 /* UIImageView+WebCache.m in Sources */,
 				B6A0BE4C2046C8EF009A8084 /* NSButton+WebCache.m in Sources */,
 				B6A0BE4D2046C8EF009A8084 /* SDAnimatedImageRep.m in Sources */,
@@ -798,6 +838,7 @@
 				B60B5099204141FE00373C7C /* CSYQueryTableView.m in Sources */,
 				B6A0BE512046C8EF009A8084 /* NSData+ImageContentType.m in Sources */,
 				B60B50A12041734300373C7C /* CSYRequest.m in Sources */,
+				B68091642048F42400411A7C /* CSYAutoProperty.m in Sources */,
 				B6A0BE452046C8EF009A8084 /* SDWebImageDownloader.m in Sources */,
 				B6BB4E3120479DD700819EF9 /* CSYQueryLogTable.m in Sources */,
 				B661CD4020372835009F49B7 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
@@ -832,6 +873,7 @@
 				B661CD4720372835009F49B7 /* MASConstraint.m in Sources */,
 				B6A0BE4E2046C8EF009A8084 /* SDImageCache.m in Sources */,
 				B6BB4E2320478B8100819EF9 /* CSYMainWindowController.m in Sources */,
+				B68091602048F3A800411A7C /* CSYIsNull.m in Sources */,
 				B6A0BE462046C8EF009A8084 /* UIImage+GIF.m in Sources */,
 				B6DD03CC202D636D00E48F30 /* CSYQueryViewController.m in Sources */,
 				B6A0BE542046C8EF009A8084 /* SDWebImageGIFCoder.m in Sources */,
@@ -990,10 +1032,22 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/cat/lib/clubSchool/SDK/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/cat/lib/clubSchool/SDK/ShareSDK/Support/Optional",
+					"$(PROJECT_DIR)/cat/lib/clubSchool/SDK/ShareSDK/Support/PlatformConnector",
+					"$(PROJECT_DIR)/cat/lib/clubSchool/SDK/ShareSDK",
+					"$(PROJECT_DIR)/cat/lib/clubSchool/SDK/Required",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/cat/other/PrefixHeader.pch";
 				INFOPLIST_FILE = cat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/cat/lib/clubSchool/SDK/ShareSDK/Support/PlatformSDK/WeChatSDK",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = csy.cat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1005,10 +1059,22 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/cat/lib/clubSchool/SDK/ShareSDK/Support/Required",
+					"$(PROJECT_DIR)/cat/lib/clubSchool/SDK/ShareSDK/Support/Optional",
+					"$(PROJECT_DIR)/cat/lib/clubSchool/SDK/ShareSDK/Support/PlatformConnector",
+					"$(PROJECT_DIR)/cat/lib/clubSchool/SDK/ShareSDK",
+					"$(PROJECT_DIR)/cat/lib/clubSchool/SDK/Required",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "$(SRCROOT)/cat/other/PrefixHeader.pch";
 				INFOPLIST_FILE = cat/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/cat/lib/clubSchool/SDK/ShareSDK/Support/PlatformSDK/WeChatSDK",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = csy.cat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

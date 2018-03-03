@@ -13,6 +13,10 @@
 #import "CSYLoginView.h"
 
 @interface CSYMainWindowController ()
+{
+    CSYQueryViewController * query;
+}
+
 @property (weak) IBOutlet NSView *bgView;
 
 @end
@@ -24,15 +28,40 @@
     
     // Implement this method to handle any initialization after your window controller's window has been loaded from its nib file.
     
+    NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+    for (NSHTTPCookie * cookie in cookies) {
+        
+        [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
+    }
+    /** 获取Cookie */
+//    [self getCookie];
+    
+}
+
+-(void)getCookie {
+    
+    
+    
+    [CSYRequest requestGetUrl:url(@"otn/login/init") paramters:nil cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
+        
+        NSData * cookiesData = [NSKeyedArchiver archivedDataWithRootObject: [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
+        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject: cookiesData forKey:@"Cookie"];
+        [defaults synchronize];
+
+    } error:^(NSError *err) {
+        
+        DLog(@" log...");
+    }];
 }
 
 /** 响应创建任务 */
 - (IBAction)createTask:(id)sender {
     
-    CSYQueryViewController * query = [[CSYQueryViewController alloc]initWithWindowNibName:@"CSYQueryViewController"];
+    query = [[CSYQueryViewController alloc]initWithWindowNibName:@"CSYQueryViewController"];
     [query.window center];
     [query.window orderFront:nil];
-    [self.window orderOut:nil];
+//    [self.window orderOut:nil];
     [query becomeFirstResponder];
 
 }

@@ -117,21 +117,6 @@
   
     if (sender.tag == 0) {
         
-       
-        NSURL * imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://kyfw.12306.cn/passport/captcha/captcha-image?login_site=E&module=login&rand=sjrand&0.%d",arc4random()%10000+10000000]];
-        
-        SDWebImageManager * manager = [SDWebImageManager sharedManager];
-        [manager loadImageWithURL:imageUrl options:SDWebImageHandleCookies progress:nil completed:^(NSImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
-            
-            if (finished) {
-                
-                [codeImage setImage:image];
-            }
-            
-            NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
-            
-            DLog(@"%@",cookies);
-        }];
         
         /** 删除验证码上面的 View */
         [self deleteSubView];
@@ -273,7 +258,23 @@
         }
     }
     
-    [_saveSelectPointStrs deleteCharactersInRange:NSMakeRange(0, _saveSelectPointStrs.length -1)];
+    [_saveSelectPointStrs deleteCharactersInRange:NSMakeRange(0, _saveSelectPointStrs.length)];
+    
+//    刷新验证码
+    NSURL * imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://kyfw.12306.cn/passport/captcha/captcha-image?login_site=E&module=login&rand=sjrand&0.%d",arc4random()%10000+10000000]];
+    
+    SDWebImageManager * manager = [SDWebImageManager sharedManager];
+    [manager loadImageWithURL:imageUrl options:SDWebImageHandleCookies progress:nil completed:^(NSImage * _Nullable image, NSData * _Nullable data, NSError * _Nullable error, SDImageCacheType cacheType, BOOL finished, NSURL * _Nullable imageURL) {
+        
+        if (finished) {
+            
+            [codeImage setImage:image];
+        }
+        
+//        NSArray * cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies];
+//
+//        DLog(@"%@",cookies);
+    }];
   
 }
 
@@ -288,30 +289,77 @@
                                     };
     
     [CSYRequest requestPostUrl:url(@"passport/web/login") paramters:paramterDict cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
-        
+
         NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-        
+
         DLog(@"%@",str);
-        
-        [CSYRequest requestPostUrl:url(@"otn/passengers/init") paramters:@{@"_json_att":@""} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
+
+        [CSYRequest requestPostUrl:url(@"passport/web/auth/uamtk") paramters:@{@"appid":@"otn"} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
+
+            NSDictionary * resaultDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
+            
+            if ([CSYIsNull isNull:resaultDict] || [resaultDict[@"newapptk"] isEqualToString:@""]) {
+                // 删除验证码上的 View,并重新获取验证码
+                [self deleteSubView];
+                return ;
+            }
             
             NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-            
+
             DLog(@"data = \n%@",str);
+           
+////            otn/confirmPassenger/getPassengerDTOs
+            [CSYRequest requestPostUrl:url(@"otn/uamauthclient") paramters:@{@"tk":resaultDict[@"newapptk"]} cookie:^(AFHTTPSessionManager *manger) {
+                
+            }  success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
+
+                NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+
+                DLog(@"%@",str);
+                
+                [CSYRequest requestPostUrl:url(@"otn/index/initMy12306") paramters:@{@"appid":@"otn"} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
+
+                    NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+
+                    DLog(@"data = \n%@",str);
+                    
+                    [CSYRequest requestPostUrl:url(@"otn/confirmPassenger/getPassengerDTOs") paramters:@{@"tk":@""} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
+                        
+                        NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                        
+                        DLog(@"data = \n%@",str);
+                    } error:^(NSError *err) {
+                        
+                        
+                        DLog(@"%@",err);
+                    }];
+                    
+                } error:^(NSError *err) {
+
+
+                    DLog(@"%@",err);
+                }];
+
+            } error:^(NSError *err) {
+
+
+                DLog(@"%@",err);
+            }];
+            
         } error:^(NSError *err) {
-            
-            
+          
             DLog(@"%@",err);
         }];
-        
+
+//
     } error:^(NSError *err) {
-        
-        
+
+
         DLog(@"登陆出错了....");
     }];
+    
 }
-
-
+     
 #pragma mark - 初始化全局属性变量
 -(NSMutableString *)saveSelectPointStrs {
     
@@ -321,4 +369,4 @@
 
 @end
 
-
+     

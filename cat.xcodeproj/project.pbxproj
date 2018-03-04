@@ -21,6 +21,8 @@
 		B614F163204BAE9C00C9578E /* MJPropertyKey.m in Sources */ = {isa = PBXBuildFile; fileRef = B614F155204BAE9C00C9578E /* MJPropertyKey.m */; };
 		B614F164204BAE9C00C9578E /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B614F159204BAE9C00C9578E /* Info.plist */; };
 		B614F165204BAE9C00C9578E /* MJFoundation.m in Sources */ = {isa = PBXBuildFile; fileRef = B614F15A204BAE9C00C9578E /* MJFoundation.m */; };
+		B614F169204C461100C9578E /* CSYMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B614F168204C461100C9578E /* CSYMessageView.m */; };
+		B614F16C204C579300C9578E /* CSYMsg.m in Sources */ = {isa = PBXBuildFile; fileRef = B614F16B204C579300C9578E /* CSYMsg.m */; };
 		B6247451203487D500D2E1A1 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = B6247448203487D500D2E1A1 /* AFURLResponseSerialization.m */; };
 		B6247452203487D500D2E1A1 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B6247449203487D500D2E1A1 /* AFHTTPSessionManager.m */; };
 		B6247453203487D500D2E1A1 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B624744B203487D500D2E1A1 /* AFURLSessionManager.m */; };
@@ -140,6 +142,10 @@
 		B614F158204BAE9C00C9578E /* NSObject+MJCoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJCoding.h"; sourceTree = "<group>"; };
 		B614F159204BAE9C00C9578E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B614F15A204BAE9C00C9578E /* MJFoundation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJFoundation.m; sourceTree = "<group>"; };
+		B614F167204C461100C9578E /* CSYMessageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYMessageView.h; sourceTree = "<group>"; };
+		B614F168204C461100C9578E /* CSYMessageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYMessageView.m; sourceTree = "<group>"; };
+		B614F16A204C579300C9578E /* CSYMsg.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYMsg.h; sourceTree = "<group>"; };
+		B614F16B204C579300C9578E /* CSYMsg.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYMsg.m; sourceTree = "<group>"; };
 		B6247444203487D500D2E1A1 /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
 		B6247445203487D500D2E1A1 /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
 		B6247446203487D500D2E1A1 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
@@ -398,9 +404,21 @@
 			path = MJExtension;
 			sourceTree = "<group>";
 		};
+		B614F166204C45F600C9578E /* msgView */ = {
+			isa = PBXGroup;
+			children = (
+				B614F167204C461100C9578E /* CSYMessageView.h */,
+				B614F168204C461100C9578E /* CSYMessageView.m */,
+				B614F16A204C579300C9578E /* CSYMsg.h */,
+				B614F16B204C579300C9578E /* CSYMsg.m */,
+			);
+			path = msgView;
+			sourceTree = "<group>";
+		};
 		B62474412034879400D2E1A1 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				B614F166204C45F600C9578E /* msgView */,
 				B614F144204BAE9C00C9578E /* MJExtension */,
 				B68091612048F41100411A7C /* AutoCode */,
 				B680915D2048F38600411A7C /* IsNull */,
@@ -893,6 +911,7 @@
 				B6A0BE552046C8EF009A8084 /* SDImageCacheConfig.m in Sources */,
 				B6A0BE412046C8EF009A8084 /* SDWebImageFrame.m in Sources */,
 				B680915C2048F31800411A7C /* NSColor+CSYHex.m in Sources */,
+				B614F16C204C579300C9578E /* CSYMsg.m in Sources */,
 				B6A0BE522046C8EF009A8084 /* UIImageView+WebCache.m in Sources */,
 				B6A0BE4C2046C8EF009A8084 /* NSButton+WebCache.m in Sources */,
 				B6A0BE4D2046C8EF009A8084 /* SDAnimatedImageRep.m in Sources */,
@@ -908,6 +927,7 @@
 				B641A81E20396A79004A51D6 /* CSYPopViewController.m in Sources */,
 				B661CD4620372835009F49B7 /* View+MASAdditions.m in Sources */,
 				B6BB4E3B2047FCE400819EF9 /* CSYLoginView.m in Sources */,
+				B614F169204C461100C9578E /* CSYMessageView.m in Sources */,
 				B60B5099204141FE00373C7C /* CSYQueryTableView.m in Sources */,
 				B6A0BE512046C8EF009A8084 /* NSData+ImageContentType.m in Sources */,
 				B60B50A12041734300373C7C /* CSYRequest.m in Sources */,

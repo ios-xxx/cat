@@ -8,6 +8,12 @@
 
 #import "CSYAddUserTable.h"
 
+@interface CSYAddUserTable()<NSTableViewDelegate,NSTableViewDataSource>
+
+@end
+
+
+
 @implementation CSYAddUserTable
 
 - (void)drawRect:(NSRect)dirtyRect {
@@ -28,4 +34,28 @@
         
     }
 }
+
+
+
+#pragma mark table delegate
+
+-(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    
+    return [_dataArrs count];
+}
+
+-(void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    
+}
+
+
+
+
+#pragma mark - 初始化全局属性
+-(NSMutableArray *)dataArrs {
+    
+    if (_dataArrs) return _dataArrs;
+    return _dataArrs = [NSMutableArray new];
+}
+
 @end

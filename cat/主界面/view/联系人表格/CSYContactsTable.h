@@ -9,5 +9,6 @@
 #import <Cocoa/Cocoa.h>
 
 @interface CSYContactsTable : NSTableView
-
+/** 用户数据 */
+@property (strong,nonatomic) NSArray * dataArr;
 @end

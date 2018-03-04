@@ -9,5 +9,6 @@
 #import <Cocoa/Cocoa.h>
 
 @interface CSYAddUserTable : NSTableView
-
+/** 用户数据 */
+@property (strong,nonatomic) NSMutableArray * dataArrs;
 @end

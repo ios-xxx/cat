@@ -7,6 +7,8 @@
 //
 
 #import "CSYLoginView.h"
+#import "CSYContactModel.h"
+
 
 @interface CSYLoginView()
 {
@@ -68,7 +70,7 @@
     }];
     
     
-    NSArray * titleArr = @[@"刷新",@"确认"];
+    NSArray * titleArr = @[@"刷新",@"关闭",@"确认"];
     NSInteger count = titleArr.count;
     for (int i = 0; i < count; i++) {
         
@@ -83,12 +85,20 @@
         [refreashBtn makeConstraints:^(MASConstraintMaker *make) {
            
             if (i == 0) {
-                make.centerX.equalTo(self).multipliedBy(0.5);
+                make.top.offset(5);
+                make.right.offset(-5);
+                
             }else {
-                make.centerX.equalTo(self).multipliedBy(1.5);
+                
+                if(i == 1){
+                    make.centerX.equalTo(self).multipliedBy(0.35);
+                }else {
+                    make.centerX.equalTo(self).multipliedBy(1.5);
+                }
+                make.bottom.offset(-10);
+                make.top.equalTo(codeImage.bottom).offset(10);
+                
             }
-            make.bottom.offset(-10);
-            make.top.equalTo(codeImage.bottom).offset(10);
             make.width.equalTo(self.width).multipliedBy(0.2);
         }];
     }
@@ -117,11 +127,14 @@
   
     if (sender.tag == 0) {
         
-        
         /** 删除验证码上面的 View */
         [self deleteSubView];
         
-    }else {
+    }else if (sender.tag == 1){
+        
+        [self removeFromSuperview];
+        
+    } else  {
         
         
         if (_saveSelectPointStrs.length < 1) return;
@@ -282,9 +295,11 @@
 /** 登陆方法 */
 -(void)loginUser {
     
+    NSString * user = @"hcp_cwj";
+    NSString * pass = @"aa123123";
     NSDictionary * paramterDict = @{
-                                    @"username":@"hcp_cwj",
-                                    @"password":@"aa123123",
+                                    @"username":user,
+                                    @"password":pass,
                                     @"appid":@"otn",
                                     };
     
@@ -295,7 +310,7 @@
         DLog(@"%@",str);
 
         [CSYRequest requestPostUrl:url(@"passport/web/auth/uamtk") paramters:@{@"appid":@"otn"} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
-
+            
             NSDictionary * resaultDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
             
             if ([CSYIsNull isNull:resaultDict] || [resaultDict[@"newapptk"] isEqualToString:@""]) {
@@ -303,31 +318,43 @@
                 [self deleteSubView];
                 return ;
             }
+            //
+            //            NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+            //
+            //            DLog(@"data = \n%@",str);
             
-            NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-
-            DLog(@"data = \n%@",str);
-           
-////            otn/confirmPassenger/getPassengerDTOs
             [CSYRequest requestPostUrl:url(@"otn/uamauthclient") paramters:@{@"tk":resaultDict[@"newapptk"]} cookie:^(AFHTTPSessionManager *manger) {
                 
             }  success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
-
-                NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-
-                DLog(@"%@",str);
+                
+                //                NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                //
+                //                DLog(@"%@",str);
                 
                 [CSYRequest requestPostUrl:url(@"otn/index/initMy12306") paramters:@{@"appid":@"otn"} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
-
-                    NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-
-                    DLog(@"data = \n%@",str);
+                    
+                    //                    NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                    //
+                    //                    DLog(@"data = \n%@",str);
                     
                     [CSYRequest requestPostUrl:url(@"otn/confirmPassenger/getPassengerDTOs") paramters:@{@"tk":@""} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
                         
-                        NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                        NSDictionary * resaultDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
                         
-                        DLog(@"data = \n%@",str);
+                        resaultDict = resaultDict[@"data"];
+                        DLog(@"%@",resaultDict[@"exMsg"]);
+                        if ([CSYIsNull isNull:resaultDict] || ![resaultDict[@"exMsg"] isEqualToString:@""]) {
+                            // 删除验证码上的 View,并重新获取验证码
+                            [self deleteSubView];
+                            
+                            DLog(@"获取联系人失败");
+                            return ;
+                        }
+                        
+                        //                    持久化处理
+                        [self writeUserInfoData:resaultDict user:user pass:pass];
+                        
+                        
                     } error:^(NSError *err) {
                         
                         
@@ -335,38 +362,108 @@
                     }];
                     
                 } error:^(NSError *err) {
-
-
+                    
+                    
                     DLog(@"%@",err);
                 }];
-
+                
             } error:^(NSError *err) {
-
-
+                
+                
                 DLog(@"%@",err);
             }];
             
         } error:^(NSError *err) {
-          
+            
             DLog(@"%@",err);
         }];
 
-//
     } error:^(NSError *err) {
-
 
         DLog(@"登陆出错了....");
     }];
-    
+
 }
-     
+
+
+#pragma mark 持久化处理
+
+/** 持久化处理 */
+-(void)writeUserInfoData:(NSDictionary *)data user:(NSString *)user pass:(NSString *)pass{
+    
+    NSArray * contactsArr = data[@"normal_passengers"];
+
+    NSFileManager * fileManger = [NSFileManager defaultManager];
+    NSArray * pathArr = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, true);
+    NSString * path = [pathArr[0] stringByAppendingPathComponent:@"cat"];
+    
+    if (![self isFileExist:@"user.plist"]) {
+
+        NSError * err;
+        BOOL isFile = [fileManger createDirectoryAtPath:path withIntermediateDirectories:true attributes:nil error:&err];
+
+        if (!isFile) {
+            
+            DLog(@"创建用户数据失败1%@",err);
+            return;
+        }
+        
+        isFile = [fileManger createFileAtPath:[path stringByAppendingString:@"cat/user.plist"] contents:nil attributes:nil];
+        if (!isFile) {
+            
+            DLog(@"创建用户数据失败2");
+            return;
+        }
+    }
+    
+    NSArray * userInfoArr = [NSArray arrayWithObjects:@{
+                                                        @"user":user,
+                                                        @"pass":pass,
+                                                        @"state":@"登陆成功",
+                                                        @"count":@(contactsArr.count),
+                                                        },
+                             @{
+                               @"contacts":contactsArr
+                               },nil
+                             ];
+    
+//    NSData * userData = [NSKeyedArchiver archivedDataWithRootObject:userInfoArr];
+    
+    DLog(@"%@",path);
+//    return;
+    BOOL isWrite = [userInfoArr writeToFile:path atomically:true];
+
+    if (isWrite) {
+
+        DLog(@"写入成功");
+    } else {
+
+        DLog(@"写入失败");
+    }
+
+
+}
+
+//判断文件是否已经在沙盒中已经存在？
+-(BOOL) isFileExist:(NSString *)fileName {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths objectAtIndex:0];
+    NSString *filePath = [path stringByAppendingPathComponent:[NSString stringWithFormat:@"cat/%@",fileName]];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL result = [fileManager fileExistsAtPath:filePath];
+    
+    return result;
+}
+    
+    
+
 #pragma mark - 初始化全局属性变量
+    
 -(NSMutableString *)saveSelectPointStrs {
     
     if (_saveSelectPointStrs != nil)  return _saveSelectPointStrs;
     return _saveSelectPointStrs = [NSMutableString new];
+    
 }
-
 @end
-
-     

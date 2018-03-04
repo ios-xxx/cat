@@ -8,6 +8,10 @@
 
 #import "CSYContactsTable.h"
 
+@interface CSYContactsTable()<NSTableViewDataSource,NSTableViewDelegate>
+
+@end
+
 @implementation CSYContactsTable
 
 - (void)drawRect:(NSRect)dirtyRect {
@@ -28,4 +32,23 @@
         
     }
 }
+
+#pragma mark table delegate
+
+-(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
+    
+    return [_dataArr count];
+}
+
+-(void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    
+}
+
+
+
+
+#pragma mark - 初始化全局属性
+
+
+
 @end

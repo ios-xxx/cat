@@ -11,6 +11,7 @@
 #import "CSYPopViewController.h"
 
 #import "CSYLoginView.h"
+#import "CSYMsg.h"
 
 @interface CSYMainWindowController ()
 {
@@ -33,30 +34,18 @@
         
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
     }
-    /** 获取Cookie */
-//    [self getCookie];
+    
+    [CSYMsg msgInView:_bgView];
+    
+ 
     
 }
 
--(void)getCookie {
-    
-    
-    
-    [CSYRequest requestGetUrl:url(@"otn/login/init") paramters:nil cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
-        
-        NSData * cookiesData = [NSKeyedArchiver archivedDataWithRootObject: [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookies]];
-        NSUserDefaults * defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject: cookiesData forKey:@"Cookie"];
-        [defaults synchronize];
-
-    } error:^(NSError *err) {
-        
-        DLog(@" log...");
-    }];
-}
 
 /** 响应创建任务 */
 - (IBAction)createTask:(id)sender {
+    
+    [CSYMsg hideMsgView];
     
     query = [[CSYQueryViewController alloc]initWithWindowNibName:@"CSYQueryViewController"];
     [query.window center];
@@ -82,8 +71,7 @@
         
         make.center.equalTo(_bgView);
         make.size.equalTo(CGSizeMake(293, 235));
-    }];
-    
+    }];  
     
 }
 @end

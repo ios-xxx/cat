@@ -332,10 +332,10 @@
                 //                DLog(@"%@",str);
                 
                 [CSYRequest requestPostUrl:url(@"otn/index/initMy12306") paramters:@{@"appid":@"otn"} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
+
+                                        NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
                     
-                    //                    NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-                    //
-                    //                    DLog(@"data = \n%@",str);
+                                        DLog(@"data = \n%@",str);
                     
                     [CSYRequest requestPostUrl:url(@"otn/confirmPassenger/getPassengerDTOs") paramters:@{@"tk":@""} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
                         
@@ -362,11 +362,11 @@
                     }];
                     
                 } error:^(NSError *err) {
-                    
-                    
+
+
                     DLog(@"%@",err);
                 }];
-                
+            
             } error:^(NSError *err) {
                 
                 
@@ -408,7 +408,8 @@
             return;
         }
         
-        isFile = [fileManger createFileAtPath:[path stringByAppendingString:@"cat/user.plist"] contents:nil attributes:nil];
+        
+        isFile = [fileManger createFileAtPath:[path stringByAppendingString:@"/user.plist"] contents:nil attributes:nil];
         if (!isFile) {
             
             DLog(@"创建用户数据失败2");
@@ -429,13 +430,15 @@
     
 //    NSData * userData = [NSKeyedArchiver archivedDataWithRootObject:userInfoArr];
     
-    DLog(@"%@",path);
 //    return;
-    BOOL isWrite = [userInfoArr writeToFile:path atomically:true];
+    BOOL isWrite = [userInfoArr writeToFile:[path stringByAppendingString:@"/user.plist"] atomically:true];
 
     if (isWrite) {
 
         DLog(@"写入成功");
+//        刷新块
+        _refashBlock();
+        
     } else {
 
         DLog(@"写入失败");

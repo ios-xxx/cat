@@ -7,6 +7,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
-
+typedef void(^RefashComplete)();
 @interface CSYLoginView : NSView
+@property(copy,nonatomic)RefashComplete refashBlock;
 @end

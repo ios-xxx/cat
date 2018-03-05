@@ -35,8 +35,6 @@
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
     }
     
-    [CSYMsg msgInView:_bgView];
-    
  
     
 }
@@ -45,7 +43,6 @@
 /** 响应创建任务 */
 - (IBAction)createTask:(id)sender {
     
-    [CSYMsg hideMsgView];
     
     query = [[CSYQueryViewController alloc]initWithWindowNibName:@"CSYQueryViewController"];
     [query.window center];
@@ -59,6 +56,8 @@
 /** 响应添加账户 */
 - (IBAction)lgoinUserClick:(id)sender {
     
+    
+    
     CSYLoginView *loginView = [CSYLoginView new];
     loginView.wantsLayer = YES;
     [loginView.layer setCornerRadius:2.5];
@@ -71,7 +70,13 @@
         
         make.center.equalTo(_bgView);
         make.size.equalTo(CGSizeMake(293, 235));
-    }];  
+    }];
+    
+    
+//    刷新 数据
+    loginView.refashBlock = ^{
+        
+    };
     
 }
 @end

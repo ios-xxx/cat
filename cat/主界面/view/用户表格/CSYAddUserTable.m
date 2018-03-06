@@ -7,6 +7,7 @@
 //
 
 #import "CSYAddUserTable.h"
+#import "CSYContactModel.h"
 
 @interface CSYAddUserTable()<NSTableViewDelegate,NSTableViewDataSource>
 
@@ -16,11 +17,17 @@
 
 @implementation CSYAddUserTable
 
+
+
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
     
+    self.delegate = self;
+    self.dataSource = self;
+    
     // Drawing code here.
 }
+
 
 -(void)awakeFromNib {
     
@@ -33,29 +40,32 @@
         [column.headerCell setAlignment:NSTextAlignmentCenter];
         
     }
+    
 }
+
+
 
 
 
 #pragma mark table delegate
-
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
     
-    return [_dataArrs count];
+   
+    return [_dataArr count];
 }
 
+-(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
+    
+    CSYContactModel * contact = [CSYContactModel mj_objectWithKeyValues:_dataArr[row]];
+    
+    DLog(@"name = %@",contact.user);
+    return nil;
+}
 -(void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     
-}
-
-
-
-
-#pragma mark - 初始化全局属性
--(NSMutableArray *)dataArrs {
     
-    if (_dataArrs) return _dataArrs;
-    return _dataArrs = [NSMutableArray new];
+    DLog(@" log...");
+    [CSYAutoProperty DictionaryCreaterPropertyCode:_dataArr[row]];
 }
 
 @end

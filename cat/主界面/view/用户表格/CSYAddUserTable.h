@@ -10,5 +10,7 @@
 
 @interface CSYAddUserTable : NSTableView
 /** 用户数据 */
-@property (strong,nonatomic) NSMutableArray * dataArrs;
+@property (strong,nonatomic) NSArray * dataArr;
+
+
 @end

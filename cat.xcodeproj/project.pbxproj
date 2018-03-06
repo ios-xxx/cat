@@ -29,6 +29,7 @@
 		B6247454203487D500D2E1A1 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = B624744C203487D500D2E1A1 /* AFURLRequestSerialization.m */; };
 		B6247455203487D500D2E1A1 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B624744E203487D500D2E1A1 /* AFNetworkReachabilityManager.m */; };
 		B6247456203487D500D2E1A1 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = B624744F203487D500D2E1A1 /* AFSecurityPolicy.m */; };
+		B63AB810204E671800759FF4 /* CSYNSSecureTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B63AB80F204E671800759FF4 /* CSYNSSecureTextFieldCell.m */; };
 		B641A81E20396A79004A51D6 /* CSYPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B641A81C20396A79004A51D6 /* CSYPopViewController.m */; };
 		B641A81F20396A79004A51D6 /* CSYPopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B641A81D20396A79004A51D6 /* CSYPopViewController.xib */; };
 		B661CD4020372835009F49B7 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B661CD2720372835009F49B7 /* NSLayoutConstraint+MASDebugAdditions.m */; };
@@ -159,6 +160,8 @@
 		B624744E203487D500D2E1A1 /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
 		B624744F203487D500D2E1A1 /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
 		B6247450203487D500D2E1A1 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
+		B63AB80E204E671800759FF4 /* CSYNSSecureTextFieldCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYNSSecureTextFieldCell.h; sourceTree = "<group>"; };
+		B63AB80F204E671800759FF4 /* CSYNSSecureTextFieldCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYNSSecureTextFieldCell.m; sourceTree = "<group>"; };
 		B641A81B20396A79004A51D6 /* CSYPopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYPopViewController.h; sourceTree = "<group>"; };
 		B641A81C20396A79004A51D6 /* CSYPopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYPopViewController.m; sourceTree = "<group>"; };
 		B641A81D20396A79004A51D6 /* CSYPopViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSYPopViewController.xib; sourceTree = "<group>"; };
@@ -418,6 +421,7 @@
 		B62474412034879400D2E1A1 /* lib */ = {
 			isa = PBXGroup;
 			children = (
+				B63AB801204E397B00759FF4 /* CSYNStextField */,
 				B614F166204C45F600C9578E /* msgView */,
 				B614F144204BAE9C00C9578E /* MJExtension */,
 				B68091612048F41100411A7C /* AutoCode */,
@@ -486,8 +490,6 @@
 			children = (
 				B60B5097204141FE00373C7C /* CSYQueryTableView.h */,
 				B60B5098204141FE00373C7C /* CSYQueryTableView.m */,
-				B6B8450B204075C3009E57C8 /* NSTextFieldCellCenter.h */,
-				B6B8450C204075C3009E57C8 /* NSTextFieldCellCenter.m */,
 			);
 			path = "列车";
 			sourceTree = "<group>";
@@ -500,6 +502,17 @@
 				B6BB4E2620479CC600819EF9 /* view */,
 			);
 			path = "主界面";
+			sourceTree = "<group>";
+		};
+		B63AB801204E397B00759FF4 /* CSYNStextField */ = {
+			isa = PBXGroup;
+			children = (
+				B6B8450B204075C3009E57C8 /* NSTextFieldCellCenter.h */,
+				B6B8450C204075C3009E57C8 /* NSTextFieldCellCenter.m */,
+				B63AB80E204E671800759FF4 /* CSYNSSecureTextFieldCell.h */,
+				B63AB80F204E671800759FF4 /* CSYNSSecureTextFieldCell.m */,
+			);
+			path = CSYNStextField;
 			sourceTree = "<group>";
 		};
 		B661CD2520372835009F49B7 /* Masonry */ = {
@@ -905,6 +918,7 @@
 				B6A0BE3F2046C8EF009A8084 /* SDWebImageManager.m in Sources */,
 				B6BB4E3720479EE300819EF9 /* CSYTaskTable.m in Sources */,
 				B6BB4E3420479E5000819EF9 /* CSYContactsTable.m in Sources */,
+				B63AB810204E671800759FF4 /* CSYNSSecureTextFieldCell.m in Sources */,
 				B6A0BE3D2046C8EF009A8084 /* UIImage+WebP.m in Sources */,
 				B6A0BE4A2046C8EF009A8084 /* SDWebImagePrefetcher.m in Sources */,
 				B614F15D204BAE9C00C9578E /* MJProperty.m in Sources */,

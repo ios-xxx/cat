@@ -8,7 +8,8 @@
 
 #import "CSYLoginView.h"
 #import "CSYContactModel.h"
-
+#import "NSTextFieldCellCenter.h"
+#import "CSYNSSecureTextFieldCell.h"
 
 @interface CSYLoginView()
 {
@@ -16,6 +17,11 @@
     NSImageView * codeImage;
     /** 判断是否进入监控区域 */
     BOOL isEntered;
+    
+    /** 张号栏 */
+    NSTextField * usText;
+    /** 密码栏 */
+    NSSecureTextField * psText;
 }
 
 /** 保存用户选中图片的坐标 */
@@ -45,7 +51,78 @@
 /** 初始化 UI */
 -(void)initWithUI {
     
+    NSArray * titleUserArr = @[@"用户名 :",@"密 码 :"];
+    NSArray * placeholderArr = @[@"输入12306账号",@"输入12306密码"];
+    NSInteger usCount =titleUserArr.count;
+    
+    NSTextField * usLab;
+    
+    for (int i = 0; i < usCount; i ++) {
+        
+        usLab = [NSTextField new];
+        [usLab setCell:[NSTextFieldCellCenter new]];
+        [usLab setEnabled:false];
+        [usLab setEditable:false];
+        [usLab setStringValue:titleUserArr[i]];
+        [self addSubview:usLab];
+        
+        [usLab makeConstraints:^(MASConstraintMaker *make) {
+           
+            make.left.offset(10);
+            make.top.offset(20+i*20+i*30);
+            
+            make.width.offset(60);
+            make.height.offset(30);
+        }];
+        
+    
+        
+        if (!i){
+           
+            usText = [NSTextField new];
+            [usText setCell:[NSTextFieldCellCenter new]];
+            [usText.cell setStringValue:@""];
+            [usText setEditable:true];
+            [usText setEnabled:true];
+            
+            usText.placeholderString = placeholderArr[i];
+            [self addSubview:usText];
+            
+            [usText makeConstraints:^(MASConstraintMaker *make) {
+                
+                make.left.equalTo(usLab.right);
+                make.right.equalTo(self.right).offset(-10);
+                make.height.offset(30);
+                make.top.offset(20+i*20+i*30);
+            }];
+            
+            continue;
+        }
+        
+        psText = [NSSecureTextField new];
+        [psText setCell:[CSYNSSecureTextFieldCell new]];
+        [psText setPlaceholderString:placeholderArr[i]];
+        [psText.cell setStringValue:@""];
+        [psText setEditable:true];
+        [psText setEnabled:true];
+        [self addSubview:psText];
+        
+        [psText makeConstraints:^(MASConstraintMaker *make) {
+            
+            make.left.equalTo(usLab.right);
+            make.right.equalTo(self.right).offset(-10);
+            make.height.offset(30);
+            make.top.offset(20+i*20+i*30);
+        }];
+
+        
+    }
+    
+    
     codeImage = [NSImageView new];
+    codeImage.wantsLayer = true;
+    [codeImage.layer setBorderColor:[NSColor colorWithHexString:@"3e3e3e"].CGColor];
+    [codeImage.layer setBorderWidth:0.5];
     
     NSURL * imageUrl = [NSURL URLWithString:[NSString stringWithFormat:@"https://kyfw.12306.cn/passport/captcha/captcha-image?login_site=E&module=login&rand=sjrand&0.%d",arc4random()%10000+10000000]];
     
@@ -65,18 +142,19 @@
     [self addSubview:codeImage];
     
     [codeImage makeConstraints:^(MASConstraintMaker *make) {
-        make.left.top.offset(0);
+        make.top.equalTo(usLab.bottom).offset(20);
+        make.left.offset(10);
         make.size.equalTo(CGSizeMake(293, 190));
     }];
     
     
-    NSArray * titleArr = @[@"刷新",@"关闭",@"确认"];
-    NSInteger count = titleArr.count;
+    NSArray * titleBtnArr = @[@"换一张",@"取消",@"登陆"];
+    NSInteger count = titleBtnArr.count;
     for (int i = 0; i < count; i++) {
         
         NSButton * refreashBtn = [NSButton new];
         [refreashBtn setBezelStyle:NSBezelStyleTexturedSquare];
-        [refreashBtn setTitle:titleArr[i]];
+        [refreashBtn setTitle:titleBtnArr[i]];
         [refreashBtn setTarget:self];
         [refreashBtn setAction:@selector(codeBtnTap:)];
         [refreashBtn setTag:i];
@@ -85,21 +163,21 @@
         [refreashBtn makeConstraints:^(MASConstraintMaker *make) {
            
             if (i == 0) {
-                make.top.offset(5);
-                make.right.offset(-5);
-                
+                make.top.equalTo(codeImage).offset(5);
+                make.right.equalTo(codeImage).offset(-5);
+                make.width.equalTo(self.width).multipliedBy(0.2);
             }else {
                 
                 if(i == 1){
-                    make.centerX.equalTo(self).multipliedBy(0.35);
+                    make.centerX.equalTo(self).multipliedBy(0.5);
                 }else {
                     make.centerX.equalTo(self).multipliedBy(1.5);
                 }
                 make.bottom.offset(-10);
                 make.top.equalTo(codeImage.bottom).offset(10);
-                
+                make.width.equalTo(self.width).multipliedBy(0.25);
             }
-            make.width.equalTo(self.width).multipliedBy(0.2);
+            
         }];
     }
     
@@ -139,7 +217,7 @@
         
         if (_saveSelectPointStrs.length < 1) return;
         [_saveSelectPointStrs deleteCharactersInRange:NSMakeRange(0, 1)];
-        DLog(@"%@",_saveSelectPointStrs);
+
         NSDictionary * paramterDict = @{
                                         @"answer":_saveSelectPointStrs,
                                         @"login_site":@"E",
@@ -147,7 +225,7 @@
                                         };
 
 
-        DLog(@"%@",paramterDict);
+//        DLog(@"%@",paramterDict);
         
         NSArray * cookies = [NSKeyedUnarchiver unarchiveObjectWithData: [[NSUserDefaults standardUserDefaults] objectForKey:@"cookie"]];
         NSHTTPCookieStorage * cookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
@@ -208,10 +286,12 @@
 // 按下鼠标左键
 - (void)mouseDown:(NSEvent *)event {
     
+    if (!isEntered) return;
+    
     NSPoint point = [event locationInWindow];
     
-    float x = point.x - CGRectGetMinX(self.frame);
-    float y =CGRectGetMaxY(self.frame) -  point.y;
+    float x = point.x - CGRectGetMinX(self.frame) -10;
+    float y =CGRectGetMaxY(self.frame) -  point.y-120;
 
 //    DLog(@"%@ --- %@",NSStringFromPoint(CGPointMake(x, y)),NSStringFromPoint(point));
     
@@ -295,8 +375,8 @@
 /** 登陆方法 */
 -(void)loginUser {
     
-    NSString * user = @"hcp_cwj";
-    NSString * pass = @"aa123123";
+    NSString * user = usText.stringValue;
+    NSString * pass = psText.stringValue;
     NSDictionary * paramterDict = @{
                                     @"username":user,
                                     @"password":pass,
@@ -417,21 +497,24 @@
         }
     }
     
-    NSArray * userInfoArr = [NSArray arrayWithObjects:@{
-                                                        @"user":user,
-                                                        @"pass":pass,
-                                                        @"state":@"登陆成功",
-                                                        @"count":@(contactsArr.count),
-                                                        },
-                             @{
-                               @"contacts":contactsArr
-                               },nil
-                             ];
+    NSDictionary * userDict = @{
+                                       @"user":[NSArray arrayWithObject:@{
+                                                                              @"user":user,
+                                                                              @"pass":pass,
+                                                                              @"state":@"登陆成功",
+                                                                              @"count":@(contactsArr.count),
+                                                                              }],
+                                       @"contacts":[NSArray arrayWithObject:@{
+                                                                              @"contact":contactsArr,
+                                                                              }]
+                                       };
+    
     
 //    NSData * userData = [NSKeyedArchiver archivedDataWithRootObject:userInfoArr];
     
+//    DLog(@"%@",[path stringByAppendingPathComponent:@"/cat/user.plist"]);
 //    return;
-    BOOL isWrite = [userInfoArr writeToFile:[path stringByAppendingString:@"/user.plist"] atomically:true];
+    BOOL isWrite = [userDict writeToFile:[path stringByAppendingPathComponent:@"/user.plist"] atomically:true];
 
     if (isWrite) {
 

@@ -11,7 +11,9 @@
 #import "CSYPopViewController.h"
 
 #import "CSYLoginView.h"
-#import "CSYMsg.h"
+#import "CSYAddUserTable.h"
+#import "CSYContactsTable.h"
+
 
 @interface CSYMainWindowController ()
 {
@@ -69,14 +71,31 @@
     [loginView makeConstraints:^(MASConstraintMaker *make) {
         
         make.center.equalTo(_bgView);
-        make.size.equalTo(CGSizeMake(293, 235));
+        make.size.equalTo(CGSizeMake(313, 350));
     }];
     
     
+    NSDictionary * tableDict = [self getLocalData];
+    
+    CSYAddUserTable * userTable = [CSYAddUserTable new];
+    userTable.dataArr = tableDict[@"user"];
+    [userTable reloadData];
+    
+    DLog(@"%@",userTable.dataArr);
 //    刷新 数据
     loginView.refashBlock = ^{
         
+        
+        
     };
+    
+}
+
+/** 获取持久化数据 */
+-(NSDictionary *)getLocalData {
+    
+    NSArray * pathArr = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, true);
+    return  [[NSDictionary alloc]initWithContentsOfFile:[pathArr[0] stringByAppendingPathComponent:@"/cat/user.plist"]];
     
 }
 @end

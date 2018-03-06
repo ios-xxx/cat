@@ -73,4 +73,14 @@
 /** <#注释#> */
 @property (strong,nonatomic) NSString * passenger_type;
 
+/** 用户账号 */
+@property (strong,nonatomic) NSString * user;
+/** 用户密码 */
+@property (strong,nonatomic) NSString * pass;
+/** 用户状态 */
+@property (strong,nonatomic) NSString * userStae;
+/** 联系人数量 */
+@property (strong,nonatomic) NSString *  count;
+
+
 @end

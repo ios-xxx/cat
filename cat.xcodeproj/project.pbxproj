@@ -30,8 +30,8 @@
 		B6247455203487D500D2E1A1 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B624744E203487D500D2E1A1 /* AFNetworkReachabilityManager.m */; };
 		B6247456203487D500D2E1A1 /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = B624744F203487D500D2E1A1 /* AFSecurityPolicy.m */; };
 		B63AB810204E671800759FF4 /* CSYNSSecureTextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B63AB80F204E671800759FF4 /* CSYNSSecureTextFieldCell.m */; };
-		B641A81E20396A79004A51D6 /* CSYPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B641A81C20396A79004A51D6 /* CSYPopViewController.m */; };
-		B641A81F20396A79004A51D6 /* CSYPopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B641A81D20396A79004A51D6 /* CSYPopViewController.xib */; };
+		B63AB820204FB47100759FF4 /* CSYPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B63AB81E204FB47100759FF4 /* CSYPopViewController.m */; };
+		B63AB821204FB47100759FF4 /* CSYPopViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B63AB81F204FB47100759FF4 /* CSYPopViewController.xib */; };
 		B661CD4020372835009F49B7 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B661CD2720372835009F49B7 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		B661CD4120372835009F49B7 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B661CD3020372835009F49B7 /* ViewController+MASAdditions.m */; };
 		B661CD4220372835009F49B7 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = B661CD3420372835009F49B7 /* MASCompositeConstraint.m */; };
@@ -78,7 +78,6 @@
 		B6A0BE582046C8EF009A8084 /* SDWebImageImageIOCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BE362046C8EF009A8084 /* SDWebImageImageIOCoder.m */; };
 		B6A0BE592046C8EF009A8084 /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BE3A2046C8EF009A8084 /* UIButton+WebCache.m */; };
 		B6A0BE5A2046C8EF009A8084 /* SDWebImageWebPCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = B6A0BE3B2046C8EF009A8084 /* SDWebImageWebPCoder.m */; };
-		B6B8450A2040712F009E57C8 /* CSYPopTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B845092040712F009E57C8 /* CSYPopTableView.m */; };
 		B6B8450D204075C3009E57C8 /* NSTextFieldCellCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B8450C204075C3009E57C8 /* NSTextFieldCellCenter.m */; };
 		B6BB4E2320478B8100819EF9 /* CSYMainWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = B6BB4E2120478B8100819EF9 /* CSYMainWindowController.m */; };
 		B6BB4E2420478B8100819EF9 /* CSYMainWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6BB4E2220478B8100819EF9 /* CSYMainWindowController.xib */; };
@@ -162,9 +161,9 @@
 		B6247450203487D500D2E1A1 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
 		B63AB80E204E671800759FF4 /* CSYNSSecureTextFieldCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYNSSecureTextFieldCell.h; sourceTree = "<group>"; };
 		B63AB80F204E671800759FF4 /* CSYNSSecureTextFieldCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYNSSecureTextFieldCell.m; sourceTree = "<group>"; };
-		B641A81B20396A79004A51D6 /* CSYPopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYPopViewController.h; sourceTree = "<group>"; };
-		B641A81C20396A79004A51D6 /* CSYPopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYPopViewController.m; sourceTree = "<group>"; };
-		B641A81D20396A79004A51D6 /* CSYPopViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSYPopViewController.xib; sourceTree = "<group>"; };
+		B63AB81D204FB47100759FF4 /* CSYPopViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYPopViewController.h; sourceTree = "<group>"; };
+		B63AB81E204FB47100759FF4 /* CSYPopViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYPopViewController.m; sourceTree = "<group>"; };
+		B63AB81F204FB47100759FF4 /* CSYPopViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CSYPopViewController.xib; sourceTree = "<group>"; };
 		B661CD2420372694009F49B7 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B661CD2620372835009F49B7 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		B661CD2720372835009F49B7 /* NSLayoutConstraint+MASDebugAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSLayoutConstraint+MASDebugAdditions.m"; sourceTree = "<group>"; };
@@ -262,8 +261,6 @@
 		B6A0BE3A2046C8EF009A8084 /* UIButton+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+WebCache.m"; sourceTree = "<group>"; };
 		B6A0BE3B2046C8EF009A8084 /* SDWebImageWebPCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDWebImageWebPCoder.m; sourceTree = "<group>"; };
 		B6A0BE3C2046C8EF009A8084 /* UIImage+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+GIF.h"; sourceTree = "<group>"; };
-		B6B845082040712F009E57C8 /* CSYPopTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CSYPopTableView.h; sourceTree = "<group>"; };
-		B6B845092040712F009E57C8 /* CSYPopTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CSYPopTableView.m; sourceTree = "<group>"; };
 		B6B8450B204075C3009E57C8 /* NSTextFieldCellCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSTextFieldCellCenter.h; sourceTree = "<group>"; };
 		B6B8450C204075C3009E57C8 /* NSTextFieldCellCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSTextFieldCellCenter.m; sourceTree = "<group>"; };
 		B6BB4E2020478B8100819EF9 /* CSYMainWindowController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = CSYMainWindowController.h; path = "cat/主界面/controller/CSYMainWindowController.h"; sourceTree = SOURCE_ROOT; };
@@ -466,11 +463,9 @@
 		B63285A42046FD9200BA1114 /* 站车 */ = {
 			isa = PBXGroup;
 			children = (
-				B641A81B20396A79004A51D6 /* CSYPopViewController.h */,
-				B641A81C20396A79004A51D6 /* CSYPopViewController.m */,
-				B641A81D20396A79004A51D6 /* CSYPopViewController.xib */,
-				B6B845082040712F009E57C8 /* CSYPopTableView.h */,
-				B6B845092040712F009E57C8 /* CSYPopTableView.m */,
+				B63AB81D204FB47100759FF4 /* CSYPopViewController.h */,
+				B63AB81E204FB47100759FF4 /* CSYPopViewController.m */,
+				B63AB81F204FB47100759FF4 /* CSYPopViewController.xib */,
 			);
 			path = "站车";
 			sourceTree = "<group>";
@@ -884,11 +879,11 @@
 				B614F164204BAE9C00C9578E /* Info.plist in Resources */,
 				B6A0BDFD20458356009A8084 /* CSYDatePopViewController.xib in Resources */,
 				B6DD03A0202D5FDD00E48F30 /* Assets.xcassets in Resources */,
-				B641A81F20396A79004A51D6 /* CSYPopViewController.xib in Resources */,
 				B661CD4A20372835009F49B7 /* Info.plist in Resources */,
 				B6DD03CD202D636D00E48F30 /* CSYQueryViewController.xib in Resources */,
 				B6BB4E2420478B8100819EF9 /* CSYMainWindowController.xib in Resources */,
 				B6DD03A3202D5FDD00E48F30 /* MainMenu.xib in Resources */,
+				B63AB821204FB47100759FF4 /* CSYPopViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -938,7 +933,6 @@
 				B6A0BE432046C8EF009A8084 /* SDWebImageCodersManager.m in Sources */,
 				B6A0BE482046C8EF009A8084 /* SDWebImageCoderHelper.m in Sources */,
 				B6A0BE532046C8EF009A8084 /* NSImage+WebCache.m in Sources */,
-				B641A81E20396A79004A51D6 /* CSYPopViewController.m in Sources */,
 				B661CD4620372835009F49B7 /* View+MASAdditions.m in Sources */,
 				B6BB4E3B2047FCE400819EF9 /* CSYLoginView.m in Sources */,
 				B614F169204C461100C9578E /* CSYMessageView.m in Sources */,
@@ -971,9 +965,9 @@
 				B661CD4820372835009F49B7 /* MASViewConstraint.m in Sources */,
 				B6247453203487D500D2E1A1 /* AFURLSessionManager.m in Sources */,
 				B6BB4E2B20479D2E00819EF9 /* CSYAddUserTable.m in Sources */,
+				B63AB820204FB47100759FF4 /* CSYPopViewController.m in Sources */,
 				B6A0BE562046C8EF009A8084 /* UIView+WebCacheOperation.m in Sources */,
 				B6A0BE3E2046C8EF009A8084 /* MKAnnotationView+WebCache.m in Sources */,
-				B6B8450A2040712F009E57C8 /* CSYPopTableView.m in Sources */,
 				B6A0BE402046C8EF009A8084 /* UIImageView+HighlightedWebCache.m in Sources */,
 				B661CD4320372835009F49B7 /* MASConstraintMaker.m in Sources */,
 				B6247451203487D500D2E1A1 /* AFURLResponseSerialization.m in Sources */,

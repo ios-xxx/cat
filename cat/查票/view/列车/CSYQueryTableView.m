@@ -56,14 +56,14 @@
     NSTextFieldCell * textCell = [tableColumn dataCellForRow:row];
     [textCell setDrawsBackground:true];
     
-    if (row%2 == 0) {
-        
-        [textCell setBackgroundColor:[NSColor redColor]];
-        
-    }else {
-        
-        [textCell setBackgroundColor:[NSColor orangeColor]];
-    }
+//    if (row%2 == 0) {
+//        
+//        [textCell setBackgroundColor:[NSColor redColor]];
+//        
+//    }else {
+//        
+//        [textCell setBackgroundColor:[NSColor orangeColor]];
+//    }
    
     
     if (![[tableColumn identifier] isEqualToString:@"name0"]) return textCell;
@@ -127,7 +127,7 @@
     if ([identifier isEqualToString:queryID]) {
 
         if ([title isEqualToString:@""]) title = @"--";
-        [cell setStringValue:title];
+        [cell setTitle:title];
 
         return true;
     }

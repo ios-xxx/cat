@@ -8,7 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 
-@interface CSYAddUserTable : NSTableView
+@interface CSYAddUserTable : NSTableView<NSTableViewDelegate,NSTableViewDataSource>
 /** 用户数据 */
 @property (strong,nonatomic) NSArray * dataArr;
 

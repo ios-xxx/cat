@@ -9,7 +9,7 @@
 #import "CSYAddUserTable.h"
 #import "CSYContactModel.h"
 
-@interface CSYAddUserTable()<NSTableViewDelegate,NSTableViewDataSource>
+@interface CSYAddUserTable()
 
 @end
 
@@ -22,8 +22,8 @@
 - (void)drawRect:(NSRect)dirtyRect {
     [super drawRect:dirtyRect];
     
-    self.delegate = self;
-    self.dataSource = self;
+//    self.delegate = self;
+//    self.dataSource = self;
     
     // Drawing code here.
 }
@@ -31,12 +31,15 @@
 
 -(void)awakeFromNib {
     
+    self.delegate = self;
+    self.dataSource = self;
+    
     NSArray * columnTitleArr = @[@"账户",@"密码",@"状态",@"联系人"];
     NSInteger i = 0;
 
     for (NSTableColumn * column in _tableColumns) {
         
-        [column setTitle:columnTitleArr[i++]];
+        [column.headerCell setTitle:columnTitleArr[i++]];
         [column.headerCell setAlignment:NSTextAlignmentCenter];
         
     }
@@ -48,24 +51,38 @@
 
 
 #pragma mark table delegate
+
+
 -(NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-    
-   
+
     return [_dataArr count];
 }
 
 -(id)tableView:(NSTableView *)tableView objectValueForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
-    
-    CSYContactModel * contact = [CSYContactModel mj_objectWithKeyValues:_dataArr[row]];
-    
-    DLog(@"name = %@",contact.user);
-    return nil;
+
+  
+        return nil;
 }
 -(void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     
+    NSTextFieldCell * textCell = cell;
+    [textCell setAlignment:NSTextAlignmentCenter];
+    CSYContactModel * model = [CSYContactModel mj_objectWithKeyValues:_dataArr[row]];
     
-    DLog(@" log...");
-    [CSYAutoProperty DictionaryCreaterPropertyCode:_dataArr[row]];
+    if ([[tableColumn identifier] isEqualToString:@"user"]) {
+        
+        textCell.stringValue = model.user;
+        
+    }else if ([[tableColumn identifier] isEqualToString:@"pass"]) {
+
+        textCell.stringValue = model.pass;
+    }else if ([[tableColumn identifier] isEqualToString:@"userStae"]) {
+        
+        textCell.stringValue = model.userState;
+    }else if  ([[tableColumn identifier] isEqualToString:@"count"]) {
+
+        textCell.stringValue = model.count;
+    }
 }
 
 @end

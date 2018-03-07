@@ -129,13 +129,12 @@
     
     NSString * fromCityCodeStr = _currentSelectFromCityArr[2] == nil ? @"GZQ":_currentSelectFromCityArr[2];
     NSString * toCityCodeStr   = _currentSelectToCityArr[2]   == nil ? @"WHN": _currentSelectToCityArr[2];
+    NSString * uri = [NSString stringWithFormat:@"otn/leftTicket/queryZ?leftTicketDTO.train_date=%@&leftTicketDTO.from_station=%@&leftTicketDTO.to_station=%@&purpose_codes=%@",dateStr,fromCityCodeStr,toCityCodeStr,self.purposeCodesStr];
 
-    NSString * url = [NSString stringWithFormat:@"https://kyfw.12306.cn/otn/leftTicket/queryZ?leftTicketDTO.train_date=%@&leftTicketDTO.from_station=%@&leftTicketDTO.to_station=%@&purpose_codes=%@",dateStr,fromCityCodeStr,toCityCodeStr,self.purposeCodesStr];
+    DLog(@"url = %@",url(uri));
+//    return;
     
-    
-//    DLog(@"url = %@",url);
-    
-    [manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager GET:url(uri) parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         
         NSString * currentUrl = task.currentRequest.URL.absoluteString;
@@ -213,7 +212,7 @@
     [manager setResponseSerializer:[AFHTTPResponseSerializer serializer]];
     [manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"text/json",@"text/html",@"text/javascript", nil]];
     
-    [manager GET:url(@"/otn/resources/js/framework/station_name.js?station_version=1.9047") parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+    [manager GET:url(@"otn/resources/js/framework/station_name.js?station_version=1.9046") parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
         
         NSString * responseStr = [[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding];
         
@@ -221,10 +220,10 @@
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *path = [paths objectAtIndex:0];
-        NSString *filePath = [path stringByAppendingPathComponent:@"city.txt"];
+        NSString *filePath = [path stringByAppendingPathComponent:@"cat/city.txt"];
         
         /** 判断文件是否存在 */
-        if([self isFileExist:@"city.txt" context:responseStr]){
+        if([self isFileExist:@"cat/city.txt" context:responseStr]){
         
             /** 写入内容 */
             [self writeFile:filePath context:responseStr];
@@ -315,7 +314,7 @@
 -(BOOL)control:(NSControl *)control textShouldBeginEditing:(NSText *)fieldEditor {
     
     [pop showRelativeToRect:[control bounds] ofView:control preferredEdge:NSRectEdgeMaxY];
-    _popViewController.table.popTag = control.identifier;
+    _popViewController.popTag = control.identifier;
     [control becomeFirstResponder];
     
     return true;
@@ -343,7 +342,7 @@
     
     _currentCityArr = [NSArray arrayWithArray:tmpCityArrs];
     
-    _popViewController.table.dataArr = [NSArray arrayWithArray:_currentCityArr];
+    _popViewController.dataArr = [NSArray arrayWithArray:_currentCityArr];
     [_popViewController.table reloadData];
     
     //    NSLog(@"...= %@ title = %@",object.identifier, object.stringValue);
@@ -430,7 +429,7 @@
     pop.behavior = NSPopoverBehaviorTransient;
     _popViewController = [[CSYPopViewController alloc]initWithNibName:@"CSYPopViewController" bundle:nil];
     pop.contentViewController = _popViewController;
-    pop.behavior = NSPopoverBehaviorTransient;
+    
     
     /** 响应选择城市内容回调 */
     [self selectCityComplete];
@@ -467,9 +466,8 @@
     datePop.appearance = [NSAppearance appearanceNamed:NSAppearanceNameVibrantLight];
     datePop.behavior = NSPopoverBehaviorTransient;
     _datePopViewController = [[CSYDatePopViewController alloc]initWithNibName:@"CSYDatePopViewController" bundle:nil];
-    
     datePop.contentViewController = _datePopViewController;
-    datePop.behavior = NSPopoverBehaviorTransient;
+    
     
    NSMutableArray * tmpSelectDateArrs = [NSMutableArray new];
     

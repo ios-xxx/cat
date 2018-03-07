@@ -78,7 +78,7 @@
 /** 用户密码 */
 @property (strong,nonatomic) NSString * pass;
 /** 用户状态 */
-@property (strong,nonatomic) NSString * userStae;
+@property (strong,nonatomic) NSString * userState;
 /** 联系人数量 */
 @property (strong,nonatomic) NSString *  count;
 

@@ -21,6 +21,10 @@
 }
 
 @property (weak) IBOutlet NSView *bgView;
+/** 用户表格 */
+@property (weak) IBOutlet CSYAddUserTable *userTable;
+ /** 联系人表格 */
+@property (weak) IBOutlet CSYContactsTable *contactsTable;
 
 @end
 
@@ -37,7 +41,10 @@
         [[NSHTTPCookieStorage sharedHTTPCookieStorage] deleteCookie:cookie];
     }
     
- 
+//    初始化用户表格数据
+    [self initWithUserTableData];
+//    初始化联系人表格数据
+    [self initWithContactsData];
     
 }
 
@@ -74,20 +81,38 @@
         make.size.equalTo(CGSizeMake(313, 350));
     }];
     
+  
     
-    NSDictionary * tableDict = [self getLocalData];
-    
-    CSYAddUserTable * userTable = [CSYAddUserTable new];
-    userTable.dataArr = tableDict[@"user"];
-    [userTable reloadData];
-    
-    DLog(@"%@",userTable.dataArr);
 //    刷新 数据
     loginView.refashBlock = ^{
         
         
+        NSDictionary * tableDict = [self getLocalData];
+        
+        _userTable.dataArr = tableDict[@"user"];
+        [_userTable reloadData];
         
     };
+    
+}
+
+/** 初始化用户表格数据 */
+-(void)initWithUserTableData {
+    
+    
+    NSDictionary * tableDict = [self getLocalData];
+    
+    _userTable.dataArr = tableDict[@"user"];
+    [_userTable reloadData];
+}
+
+/** 初始化联系人表格数据 */
+-(void)initWithContactsData {
+    
+    NSDictionary * tableDict = [self getLocalData];
+    _contactsTable.dataArr =tableDict[@"contacts"];
+    
+    [_contactsTable reloadData];
     
 }
 

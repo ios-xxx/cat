@@ -497,17 +497,41 @@
         }
     }
     
-    NSDictionary * userDict = @{
-                                       @"user":[NSArray arrayWithObject:@{
-                                                                              @"user":user,
-                                                                              @"pass":pass,
-                                                                              @"state":@"登陆成功",
-                                                                              @"count":@(contactsArr.count),
-                                                                              }],
-                                       @"contacts":[NSArray arrayWithObject:@{
-                                                                              @"contact":contactsArr,
-                                                                              }]
-                                       };
+    NSDictionary * localData = [self getLocalData];
+    
+    NSDictionary * userDict;
+    
+    if ([CSYIsNull isNull:localData]) {
+        
+       userDict = @{
+                                    @"user":[NSArray arrayWithObject:@{
+                                                                       @"user":user,
+                                                                       @"pass":pass,
+                                                                       @"userState":@"登陆成功",
+                                                                       @"count":@(contactsArr.count),
+                                                                       }],
+                                    @"contacts":[NSArray arrayWithObject:contactsArr],
+                                    
+                                    };
+    }else {
+        
+        NSMutableArray * userDataArrs =[NSMutableArray arrayWithArray: localData[@"user"]];
+        
+        [userDataArrs addObject:@{
+                                  @"user":user,
+                                  @"pass":pass,
+                                  @"userState":@"登陆成功",
+                                  @"count":@(contactsArr.count),
+                                  }];
+        
+        NSMutableArray * contactDataArrs = [NSMutableArray arrayWithArray:localData[@"contacts"]];
+        [contactDataArrs addObject:contactsArr];
+    }
+    
+   
+    
+    
+    
     
     
 //    NSData * userData = [NSKeyedArchiver archivedDataWithRootObject:userInfoArr];
@@ -521,6 +545,7 @@
         DLog(@"写入成功");
 //        刷新块
         _refashBlock();
+        [self removeFromSuperview];
         
     } else {
 
@@ -541,7 +566,14 @@
     
     return result;
 }
+
+/** 获取持久化数据 */
+-(NSDictionary *)getLocalData {
     
+    NSArray * pathArr = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, true);
+    return  [[NSDictionary alloc]initWithContentsOfFile:[pathArr[0] stringByAppendingPathComponent:@"/cat/user.plist"]];
+    
+}
     
 
 #pragma mark - 初始化全局属性变量

@@ -36,7 +36,7 @@
 #import "NSColor+CSYHex.h"
 #import "CSYIsNull.h"
 #import "CSYAutoProperty.h"
-
+#import "NSTextFieldCellCenter.h"
 
 
 

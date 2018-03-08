@@ -74,11 +74,12 @@
     return btnCell;
 }
 
-
 -(void)tableView:(NSTableView *)tableView willDisplayCell:(id)cell forTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {
     
    
+   
     NSArray * rowArr = _dataArr[row];
+    
     NSString * identifier = [tableColumn identifier];
     
         // 指定 cell 的内容
@@ -146,6 +147,15 @@
         
          [_selectDataArr replaceObjectAtIndex:row withObject:@(0)];
     }
+    
+    if ([_selectDataArr[row] intValue]) {
+        
+        NSString * secretStr = [_dataArr[row] objectAtIndex:0];
+//         选中列车返回Key
+        _selectTraniBlock(secretStr);
+      
+    }
+    
 }
 
 -(BOOL)tableView:(NSTableView *)tableView shouldEditTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row {

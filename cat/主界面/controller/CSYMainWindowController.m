@@ -18,6 +18,8 @@
 @interface CSYMainWindowController ()
 {
     CSYQueryViewController * query;
+    /** 选择的用户 */
+    NSInteger selectUser;
 }
 
 @property (weak) IBOutlet NSView *bgView;
@@ -66,7 +68,6 @@
 - (IBAction)lgoinUserClick:(id)sender {
     
     
-    
     CSYLoginView *loginView = [CSYLoginView new];
     loginView.wantsLayer = YES;
     [loginView.layer setCornerRadius:2.5];
@@ -104,15 +105,25 @@
     
     _userTable.dataArr = tableDict[@"user"];
     [_userTable reloadData];
+    
+    /** 响应用户被选中 */
+    _userTable.selectUserBlock = ^(NSInteger user) {
+      
+        _contactsTable.dataArr =[tableDict[@"contacts"] objectAtIndex:user];
+        
+        [_contactsTable reloadData];
+    };
 }
 
 /** 初始化联系人表格数据 */
 -(void)initWithContactsData {
     
     NSDictionary * tableDict = [self getLocalData];
-    _contactsTable.dataArr =tableDict[@"contacts"];
+    _contactsTable.dataArr =[tableDict[@"contacts"] objectAtIndex:0];
     
     [_contactsTable reloadData];
+    
+    
     
 }
 

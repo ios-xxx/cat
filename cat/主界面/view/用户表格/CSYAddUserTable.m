@@ -85,4 +85,12 @@
     }
 }
 
+
+-(BOOL)tableView:(NSTableView *)tableView shouldSelectRow:(NSInteger)row {
+
+    /** 选中账户回调 */
+    _selectUserBlock(row);
+    
+    return true;
+}
 @end

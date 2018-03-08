@@ -501,31 +501,38 @@
     
     NSDictionary * userDict;
     
+    
+    
     if ([CSYIsNull isNull:localData]) {
-        
-       userDict = @{
-                                    @"user":[NSArray arrayWithObject:@{
-                                                                       @"user":user,
-                                                                       @"pass":pass,
-                                                                       @"userState":@"登陆成功",
-                                                                       @"count":@(contactsArr.count),
-                                                                       }],
-                                    @"contacts":[NSArray arrayWithObject:contactsArr],
-                                    
-                                    };
+
+        userDict = @{
+                     @"user":[NSArray arrayWithObject:@{
+                                                        @"user":user,
+                                                        @"pass":pass,
+                                                        @"userState":@"登陆成功",
+                                                        @"count":@(contactsArr.count),
+                                                        }],
+                     @"contacts":[NSArray arrayWithObject:contactsArr],
+                     
+                     };
     }else {
-        
+
         NSMutableArray * userDataArrs =[NSMutableArray arrayWithArray: localData[@"user"]];
-        
+
         [userDataArrs addObject:@{
                                   @"user":user,
                                   @"pass":pass,
                                   @"userState":@"登陆成功",
                                   @"count":@(contactsArr.count),
                                   }];
-        
+
         NSMutableArray * contactDataArrs = [NSMutableArray arrayWithArray:localData[@"contacts"]];
         [contactDataArrs addObject:contactsArr];
+        
+        userDict = @{
+                     @"user":userDataArrs,
+                     @"contacts":contactDataArrs,
+                     };
     }
     
    

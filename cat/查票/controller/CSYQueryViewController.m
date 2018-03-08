@@ -194,6 +194,8 @@
 
         [_dataArr addObject:objArr];
         [_selectDataArr addObject:@(0)];
+        
+        
 
     }
     
@@ -410,9 +412,25 @@
 /** 响应确定按钮被单击 */
 - (IBAction)confirm:(id)sender {
     
+    [CSYRequest requestPostUrl:url(@"otn/login/checkUser") paramters:@{@"_json_att":@""} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
+        
+        NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+        DLog(@"%@",str);
+        [CSYRequest requestPostUrl:url(@"otn/leftTicket/submitOrderRequest") paramters:@{@"_json_att":@""} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
+            
+            NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+            DLog(@"%@",str);
+        } error:^(NSError *err) {
+            
+            DLog(@"%@",err);;
+        }];
+    } error:^(NSError *err) {
+       
+        DLog(@"%@",err);;
+    }];
     
     DLog(@" log..");
-    [self.window close];
+//    [self.window close];
 }
 
 

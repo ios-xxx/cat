@@ -27,6 +27,9 @@
 #define MAS_SHORTHAND
 #define MAS_SHORTHAND_GLOBALS
 
+//#define semaphore_wait(semaphore) dispatch_semaphore_wait(semaphore);
+//#define semaphore_signal(semaphore) dispatch_semaphore_signal(semaphore);
+
 
 #import "AFNetworking.h"
 #import "Masonry.h"

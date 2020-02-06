@@ -14,7 +14,7 @@
     
     if ([super initWithCoder:coder]) {
         
-        _cFlags.vCentered = 1;
+//        _cFlags.vCentered = 1;
         //        _cFlags.hCentered = 1;
     }
     
@@ -25,7 +25,7 @@
     
     if ([super init]) {
         
-        _cFlags.vCentered = 1;
+//        _cFlags.vCentered = 1;
         //        _cFlags.hCentered = 1;
     }
     return self;

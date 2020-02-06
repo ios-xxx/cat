@@ -25,7 +25,7 @@
 
 /** 出发地 */
 @property (strong) IBOutlet NSTextField *formAddress;
- /** 目的地 */
+/** 目的地 */
 @property (weak) IBOutlet NSTextField *toAddress;
 
 @property (weak) IBOutlet CSYQueryTableView *tableView;
@@ -70,6 +70,8 @@
 @property (strong,nonatomic) NSString * toStation;
 /** 车票类型 */
 @property (strong,nonatomic) NSString * purposeCodesStr;
+/** key */
+@property (copy,nonatomic) NSString * secretStr;
 
 @end
 
@@ -94,14 +96,77 @@
     [self.toAddress setIdentifier:@"toAddress"];
  
     
+    
 //  获取所有的车站
     [self getAllStation];
 //  初始化日期方法
     [self initWithDate];
-    
+   
+   
 }
 
-
+-(void)test {
+    
+    dispatch_queue_t quene = dispatch_queue_create("sub", DISPATCH_QUEUE_SERIAL);
+    
+    BOOL  __block isFinsh;
+    
+    NSBlockOperation * op1 = [NSBlockOperation blockOperationWithBlock:^{
+        
+        dispatch_async(quene, ^{
+            [NSThread sleepForTimeInterval:3];
+            isFinsh = true;
+            NSLog(@"1");
+            
+        });
+        
+    }];
+    
+    [op1 start];
+    
+    while (!isFinsh)  sleep(1);
+    isFinsh = false;
+    
+    NSBlockOperation * op2 = [NSBlockOperation blockOperationWithBlock:^{
+        dispatch_async(quene, ^{
+            
+            NSLog(@"2");
+            
+            isFinsh = true;
+        });
+    }];
+    
+    [op2 start];
+    
+    while (!isFinsh)  sleep(1);
+    isFinsh = false;
+    
+    NSBlockOperation * op3 = [NSBlockOperation blockOperationWithBlock:^{
+        
+        dispatch_async(quene, ^{
+            
+            [NSThread sleepForTimeInterval:5];
+            NSLog(@"3");
+            isFinsh = true;
+        });
+    }];
+    
+    [op3 start];
+    
+    while (!isFinsh)  sleep(1);
+    isFinsh = false;
+    
+    NSBlockOperation * op4 = [NSBlockOperation blockOperationWithBlock:^{
+        
+        dispatch_async(quene, ^{
+            
+            NSLog(@"4");
+            
+        });
+    }];
+    
+    [op4 start];
+}
 
 
 
@@ -129,7 +194,7 @@
     
     NSString * fromCityCodeStr = _currentSelectFromCityArr[2] == nil ? @"GZQ":_currentSelectFromCityArr[2];
     NSString * toCityCodeStr   = _currentSelectToCityArr[2]   == nil ? @"WHN": _currentSelectToCityArr[2];
-    NSString * uri = [NSString stringWithFormat:@"otn/leftTicket/queryZ?leftTicketDTO.train_date=%@&leftTicketDTO.from_station=%@&leftTicketDTO.to_station=%@&purpose_codes=%@",dateStr,fromCityCodeStr,toCityCodeStr,self.purposeCodesStr];
+    NSString * uri = [NSString stringWithFormat:@"otn/leftTicket/queryA?leftTicketDTO.train_date=%@&leftTicketDTO.from_station=%@&leftTicketDTO.to_station=%@&purpose_codes=%@",dateStr,fromCityCodeStr,toCityCodeStr,self.purposeCodesStr];
 
     DLog(@"url = %@",url(uri));
 //    return;
@@ -141,7 +206,7 @@
         
         if ([currentUrl rangeOfString:@"error"].location != NSNotFound ) {
            
-            DLog(@"%@",[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding]);
+            DLog(@"res = %@",[[NSString alloc]initWithData:responseObject encoding:NSUTF8StringEncoding]);
             DLog(@"网络请求出错了---");
             return ;
         }
@@ -154,10 +219,11 @@
 
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
 
-        NSLog(@"%@",error);
+        NSLog(@"err = %@",error);
     }];
 }
 
+/** 刷新表格中的所有车票信息 */
 -(void)tableReload:(NSDictionary *)data {
 
 //    if (data == nil) {
@@ -200,10 +266,122 @@
     }
     
     _tableView.dataArr = _dataArr;
+    
     _tableView.selectDataArr = _selectDataArr;
 
     [_tableView reloadData];
+    
+    // 处理有票火车被选中(返回当前车次对应的 key
+    _tableView.selectTraniBlock = ^(NSString *secretStr) {
+        
+        self.secretStr = secretStr;
+        
+        CSYQueryViewController * obj = self;
+        dispatch_async(dispatch_get_global_queue(0, 0), ^{
+            
+           
+            [self simulationOfTheTicket];
+        });
+
+        
+    };
 }
+
+
+/**
+ 模拟购票
+ */
+-(void)simulationOfTheTicket{
+    
+    /**  */
+    BOOL __block isError;
+    dispatch_semaphore_t semaphoree = dispatch_semaphore_create(0);
+//    检查用户登陆状态
+    [CSYRequest requestPostUrl:url(@"otn/login/checkUser") paramters:@{@"_json_att:":@""} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
+        
+        isError = false;
+        dispatch_semaphore_signal(semaphoree);
+        
+    } error:^(NSError *err) {
+        
+        isError = true;
+        DLog(@"err=%@",err);
+        dispatch_semaphore_signal(semaphoree);
+    }];
+    
+    dispatch_semaphore_wait(semaphoree,DISPATCH_TIME_FOREVER);
+
+    if (isError) return;
+   
+    /** 发车站 */
+    NSString * __block fromAddreessStr;
+    /** 到达站 */
+    NSString * __block toAddressStr;
+    NSString * __block secretStr;
+    NSString * __block trainDateStr;
+    NSString * __block purposeCodesStr;
+    CSYQueryViewController * obj = self;
+    dispatch_sync(dispatch_get_main_queue(), ^{
+       
+        /** 发车站 */
+        fromAddreessStr = obj.formAddress.stringValue == nil ? obj.formAddress.placeholderString : obj.formAddress.stringValue;
+        /** 到达站 */
+        toAddressStr = obj.toAddress.stringValue == nil ? obj.toAddress.placeholderString : obj.toAddress.stringValue;
+        secretStr = obj.secretStr;
+        trainDateStr = obj.trainDateStr;
+        purposeCodesStr = obj.purposeCodesStr;
+        
+    });
+    
+    NSDictionary * paramterDict = @{
+                                    @"secretStr":secretStr,
+                                    @"train_date":trainDateStr,
+                                    @"back_train_date":trainDateStr,
+                                    @"tour_flag":@"dc",
+                                    @"purpose_codes":purposeCodesStr,
+                                    @"query_from_station_name":fromAddreessStr,
+                                    @"query_to_station_name":toAddressStr,
+                                    @"undefined":@"",
+                                    };
+    NSLog(@"%@",paramterDict);
+    
+    
+//    提交订单请求
+    [CSYRequest requestPostUrl:url(@"otn/leftTicket/submitOrderRequest") paramters:paramterDict cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
+      
+        
+        isError = false;
+        dispatch_semaphore_signal(semaphoree);
+    } error:^(NSError *err) {
+        
+        isError = true;
+        DLog(@"订票请求提交出错==%@",err);
+    }];
+ 
+    dispatch_semaphore_wait(semaphoree,DISPATCH_TIME_FOREVER);
+    if(isError) return;
+    
+    
+    //    确认乘客信息
+    [CSYRequest requestPostUrl:url(@"otn/leftTicket/submitOrderRequest") paramters:@{@"_json_att":@""} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
+        
+        
+        isError = false;
+        dispatch_semaphore_signal(semaphoree);
+    } error:^(NSError *err) {
+        
+        isError = true;
+        DLog(@"确认乘客出错==%@",err);
+    }];
+    
+    dispatch_semaphore_wait(semaphoree,DISPATCH_TIME_FOREVER);
+    if(isError) return;
+    
+    
+    
+    
+}
+
 
 
 /** 获取所有车站 */
@@ -393,11 +571,11 @@
 /** 初始化乘车日期 */
 -(void)initWithDate {
     
-    NSDate * date = [NSDate date];
+    NSDate *          date      = [NSDate date];
     NSDateFormatter * formatter = [NSDateFormatter new];
     [formatter setDateFormat:[NSString stringWithFormat:@"yyyy/MM/dd"]];
-    NSString * currentDateStr = [formatter stringFromDate:date];
-    _currentDate.title = currentDateStr;
+    NSString * currentDateStr   = [formatter stringFromDate:date];
+    _currentDate.title          = currentDateStr;
     
 }
 

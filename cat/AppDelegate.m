@@ -23,6 +23,8 @@
     
     /** 居中显示 */
     [_mainWindow.window center];
+    [_mainWindow.window cascadeTopLeftFromPoint:NSMakePoint(0, 0)];
+  
     /** 显示到窗口 */
     [_mainWindow.window orderFront:nil];
 }

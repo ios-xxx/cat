@@ -60,7 +60,8 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer = [AFHTTPResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects: @"application/json", @"text/json", @"text/javascript",@"text/html",@"application/text", nil];
-    
+    [manager.requestSerializer setValue : @"https://www.caim8.com/lcqssc/index.html" forHTTPHeaderField:@"referer"];
+
     if (cookie != nil) {
         
         cookie(manager);

@@ -181,7 +181,7 @@
         }];
     }
     
-    //    添加监视钩端螺旋体病
+    //    添加鼠标监视
         NSTrackingArea * trackingArea = [[NSTrackingArea alloc]initWithRect:codeImage.bounds options:NSTrackingMouseEnteredAndExited | NSTrackingMouseMoved |
                                          NSTrackingCursorUpdate |
                                          NSTrackingActiveWhenFirstResponder |
@@ -382,13 +382,15 @@
                                     @"password":pass,
                                     @"appid":@"otn",
                                     };
+ 
     
     [CSYRequest requestPostUrl:url(@"passport/web/login") paramters:paramterDict cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
-
+        
+        
         NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-
+        
         DLog(@"%@",str);
-
+        
         [CSYRequest requestPostUrl:url(@"passport/web/auth/uamtk") paramters:@{@"appid":@"otn"} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
             
             NSDictionary * resaultDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableLeaves error:nil];
@@ -412,10 +414,10 @@
                 //                DLog(@"%@",str);
                 
                 [CSYRequest requestPostUrl:url(@"otn/index/initMy12306") paramters:@{@"appid":@"otn"} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
-
-                                        NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
                     
-                                        DLog(@"data = \n%@",str);
+                    NSString * str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+                    
+                    DLog(@"data = \n%@",str);
                     
                     [CSYRequest requestPostUrl:url(@"otn/confirmPassenger/getPassengerDTOs") paramters:@{@"tk":@""} cookie:nil success:^(NSURLSessionDataTask * _Nonnull task, NSData *data) {
                         
@@ -442,11 +444,11 @@
                     }];
                     
                 } error:^(NSError *err) {
-
-
+                    
+                    
                     DLog(@"%@",err);
                 }];
-            
+                
             } error:^(NSError *err) {
                 
                 
@@ -457,11 +459,14 @@
             
             DLog(@"%@",err);
         }];
-
+         
     } error:^(NSError *err) {
-
+        
         DLog(@"登陆出错了....");
+        return ;
     }];
+
+   
 
 }
 

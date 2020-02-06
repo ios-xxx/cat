@@ -55,9 +55,9 @@
 }
 
 - (CGImageSourceRef)imageSource {
-    if (_tiffData) {
-        return (__bridge CGImageSourceRef)(_tiffData);
-    }
+//    if (_tiffData) {
+//        return (__bridge CGImageSourceRef)(_tiffData);
+//    }
     return NULL;
 }
 
